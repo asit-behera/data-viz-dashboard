@@ -3,11 +3,11 @@ import "./App.css";
 import { DashboardLayout } from "./layouts";
 
 import { createTheme } from "@mui/material/styles";
-import { useState } from "react";
+//import { useState } from "react";
 //import { lime, purple } from "@mui/material/colors";
 import { BrowserRouter, Routes, Route } from "react-router";
 
-const darkTheme = createTheme({
+/* const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: { main: "#027AE8" },
@@ -17,7 +17,7 @@ const darkTheme = createTheme({
     //error: { primary: "#F59C9C", secondary: "#1E0101" },
     //success: { primary: "#9CE8A1", secondary: "#021D02" },
   },
-});
+}); */
 
 const lightTheme = createTheme({
   palette: {
@@ -31,14 +31,16 @@ const lightTheme = createTheme({
   },
 });
 function App() {
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  /*   const [isDarkTheme, setIsDarkTheme] = useState(true);
   const toggleTheme = () => {
     setIsDarkTheme((prev) => !prev);
-  };
+  }; */
 
   return (
     <BrowserRouter>
-      <ThemeProvider theme={isDarkTheme ? lightTheme : darkTheme}>
+      <ThemeProvider
+        theme={/* isDarkTheme ? lightTheme : darkTheme */ lightTheme}
+      >
         <Routes>
           <Route element={<DashboardLayout />}>
             <Route index element={<>{"Dashboard!!"}</>} />
