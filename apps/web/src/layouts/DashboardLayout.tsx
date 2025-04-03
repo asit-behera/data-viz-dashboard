@@ -21,10 +21,8 @@ function Dashboard() {
       <Box
         component="main"
         sx={{
-          //flexGrow: 1,
           padding: 2,
           marginLeft: `${open ? drawerWidth : collapsedWidth}px`,
-          //transition: "margin 0.3s",
           marginTop: `${appBarHeight}px`,
         }}
       >

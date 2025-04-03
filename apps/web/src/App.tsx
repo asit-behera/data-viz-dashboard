@@ -6,6 +6,13 @@ import { createTheme } from "@mui/material/styles";
 //import { useState } from "react";
 //import { lime, purple } from "@mui/material/colors";
 import { BrowserRouter, Routes, Route } from "react-router";
+import {
+  AcvRanges,
+  Customer,
+  Dashboard,
+  Industry,
+  TeamPerformance,
+} from "./pages";
 
 /* const darkTheme = createTheme({
   palette: {
@@ -43,8 +50,11 @@ function App() {
       >
         <Routes>
           <Route element={<DashboardLayout />}>
-            <Route index element={<>{"Dashboard!!"}</>} />
-            <Route path="test" element={<>{"Hello World!!"}</>} />
+            <Route index element={<Dashboard />} />
+            <Route path="industry" element={<Industry />} />
+            <Route path="customers" element={<Customer />} />
+            <Route path="acv-ranges" element={<AcvRanges />} />
+            <Route path="teams" element={<TeamPerformance />} />
           </Route>
         </Routes>
         <CssBaseline />

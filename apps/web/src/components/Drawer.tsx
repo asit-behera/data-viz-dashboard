@@ -1,13 +1,17 @@
 import Box from "@mui/material/Box";
 import MUIDrawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+
+import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
+import FactoryIcon from "@mui/icons-material/Factory";
+import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
+import MoneyIcon from "@mui/icons-material/Money";
+import GroupsIcon from "@mui/icons-material/Groups";
+import { useNavigate } from "react-router";
 
 interface DrawerProps {
   isOpen: boolean;
@@ -19,6 +23,7 @@ const appBarHeight = 64; // Adjust based on your AppBar height
 const collapsedWidth = 60;
 
 export default function Drawer({ isOpen, toggleDrawer }: DrawerProps) {
+  const navigate = useNavigate();
   const DrawerList = (
     <Box
       sx={{ width: isOpen ? drawerWidth : collapsedWidth }}
@@ -26,29 +31,66 @@ export default function Drawer({ isOpen, toggleDrawer }: DrawerProps) {
       //onClick={() => toggleDrawer(false)}
     >
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem disablePadding>
+          <ListItemButton
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            <ListItemIcon>
+              <SpaceDashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Dashboard"} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton
+            onClick={() => {
+              navigate("/industry");
+            }}
+          >
+            <ListItemIcon>
+              <FactoryIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Industry"} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton
+            onClick={() => {
+              navigate("/Customers");
+            }}
+          >
+            <ListItemIcon>
+              <SupervisorAccountIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Customers"} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton
+            onClick={() => {
+              navigate("/ACV-Ranges");
+            }}
+          >
+            <ListItemIcon>
+              <MoneyIcon />
+            </ListItemIcon>
+            <ListItemText primary={"ACV Ranges"} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton
+            onClick={() => {
+              navigate("/Teams");
+            }}
+          >
+            <ListItemIcon>
+              <GroupsIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Teams"} />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
