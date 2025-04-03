@@ -30,7 +30,7 @@ const lightTheme = createTheme({
   },
 });
 function App() {
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [isDarkTheme] = useState(true);
 
   return (
     <ThemeProvider theme={isDarkTheme ? lightTheme : darkTheme}>

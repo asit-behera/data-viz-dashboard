@@ -3,9 +3,9 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Button, Typography, useTheme } from "@mui/material";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
+import { Typography, useTheme } from "@mui/material";
+//import DarkModeIcon from "@mui/icons-material/DarkMode";
+//import LightModeIcon from "@mui/icons-material/LightMode";
 
 interface AppBarProps {
   toggleDrawer: () => void;
