@@ -44,6 +44,7 @@ export default function AppBar({ toggleDrawer }: AppBarProps) {
           >
             <MenuIcon />
           </IconButton>
+
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             Data Viz
           </Typography>

@@ -1,10 +1,11 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import "./App.css";
-import { Dashboard } from "./layouts";
+import { DashboardLayout } from "./layouts";
 
 import { createTheme } from "@mui/material/styles";
 import { useState } from "react";
 //import { lime, purple } from "@mui/material/colors";
+import { BrowserRouter, Routes, Route } from "react-router";
 
 const darkTheme = createTheme({
   palette: {
@@ -30,13 +31,23 @@ const lightTheme = createTheme({
   },
 });
 function App() {
-  const [isDarkTheme] = useState(true);
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const toggleTheme = () => {
+    setIsDarkTheme((prev) => !prev);
+  };
 
   return (
-    <ThemeProvider theme={isDarkTheme ? lightTheme : darkTheme}>
-      <Dashboard />
-      <CssBaseline />
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={isDarkTheme ? lightTheme : darkTheme}>
+        <Routes>
+          <Route element={<DashboardLayout />}>
+            <Route index element={<>{"Dashboard!!"}</>} />
+            <Route path="test" element={<>{"Hello World!!"}</>} />
+          </Route>
+        </Routes>
+        <CssBaseline />
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 

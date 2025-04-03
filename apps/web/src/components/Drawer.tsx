@@ -21,9 +21,9 @@ const collapsedWidth = 60;
 export default function Drawer({ isOpen, toggleDrawer }: DrawerProps) {
   const DrawerList = (
     <Box
-      sx={{ width: 250 }}
+      sx={{ width: isOpen ? drawerWidth : collapsedWidth }}
       role="presentation"
-      onClick={() => toggleDrawer(false)}
+      //onClick={() => toggleDrawer(false)}
     >
       <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
