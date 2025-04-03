@@ -32,6 +32,6 @@ app.get("/api/:name", (req, res) => {
  * * I kept static serving at the end because if we hit a bad endpoint,
  * * the 404 error will simply fall back to React Router.
  */
-app.use("/", express.static(path.resolve(__dirname, "web")));
+app.use("/*", express.static(path.resolve(__dirname, "web")));
 
 export default app;
