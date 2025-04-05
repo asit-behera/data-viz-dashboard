@@ -16,8 +16,8 @@ type Metric = {
   percent: number;
 };
 type TableData = {
-  sortedQuaters: string[];
-  quaterTotal: Record<string, Metric>;
+  sortedQuarters: string[];
+  quarterTotal: Record<string, Metric>;
   keys: Record<string, string>;
   data: Record<string, Record<string, Metric>>;
   uniqueKey: [string, string];
@@ -27,8 +27,8 @@ function Table({ tableData }: { tableData: TableData }) {
   const {
     uniqueKey = [],
     data,
-    quaterTotal,
-    sortedQuaters,
+    quarterTotal,
+    sortedQuarters,
     keys: _keys,
   } = tableData;
   if ([0, 1].includes(uniqueKey.length)) return;
@@ -52,7 +52,7 @@ function Table({ tableData }: { tableData: TableData }) {
 
   const theme = useTheme();
 
-  console.log({ uniqueKey, data, quaterTotal, sortedQuaters, keys });
+  console.log({ uniqueKey, data, quarterTotal, sortedQuarters, keys });
 
   return (
     <Box
@@ -82,7 +82,7 @@ function Table({ tableData }: { tableData: TableData }) {
               >
                 Closed Fiscal Quarter
               </TableCell>
-              {sortedQuaters?.map((elemet, index) => (
+              {sortedQuarters?.map((elemet, index) => (
                 <TableCell
                   key={`${elemet}_${index}`}
                   colSpan={3}
@@ -123,7 +123,7 @@ function Table({ tableData }: { tableData: TableData }) {
               >
                 {uniqueKey[1]}
               </TableCell>
-              {sortedQuaters?.map((_) => (
+              {sortedQuarters?.map((_) => (
                 <>
                   <TableCell
                     sx={{
@@ -212,7 +212,7 @@ function Table({ tableData }: { tableData: TableData }) {
                     >
                       {_keys[key]}
                     </TableCell>
-                    {sortedQuaters.map((quater) => (
+                    {sortedQuarters.map((quarter) => (
                       <>
                         <TableCell
                           sx={{
@@ -220,7 +220,7 @@ function Table({ tableData }: { tableData: TableData }) {
                             fontSize: "12px",
                             padding: "6px",
                           }}
-                        >{`${data[key][quater]?.opps ?? "-"}`}</TableCell>
+                        >{`${data[key][quarter]?.opps ?? "-"}`}</TableCell>
                         <TableCell
                           sx={{
                             border: "1px solid #ddd",
@@ -228,7 +228,7 @@ function Table({ tableData }: { tableData: TableData }) {
                             padding: "6px",
                           }}
                         >
-                          {formatCurrency(data[key][quater]?.acv)}
+                          {formatCurrency(data[key][quarter]?.acv)}
                         </TableCell>
                         <TableCell
                           sx={{
@@ -236,7 +236,7 @@ function Table({ tableData }: { tableData: TableData }) {
                             fontSize: "12px",
                             padding: "6px",
                           }}
-                        >{`${data[key][quater]?.percent ?? "-"}`}</TableCell>
+                        >{`${data[key][quarter]?.percent ?? "-"}`}</TableCell>
                       </>
                     ))}
                     <TableCell
@@ -285,7 +285,7 @@ function Table({ tableData }: { tableData: TableData }) {
               >
                 {"Total"}
               </TableCell>
-              {sortedQuaters.map((quater) => (
+              {sortedQuarters.map((quarter) => (
                 <>
                   <TableCell
                     sx={{
@@ -294,7 +294,7 @@ function Table({ tableData }: { tableData: TableData }) {
                       padding: "6px",
                       fontWeight: "bold",
                     }}
-                  >{`${quaterTotal[quater]?.opps ?? "-"}`}</TableCell>
+                  >{`${quarterTotal[quarter]?.opps ?? "-"}`}</TableCell>
                   <TableCell
                     sx={{
                       border: "1px solid #ddd",
@@ -303,7 +303,7 @@ function Table({ tableData }: { tableData: TableData }) {
                       fontWeight: "bold",
                     }}
                   >
-                    {formatCurrency(quaterTotal[quater]?.acv)}
+                    {formatCurrency(quarterTotal[quarter]?.acv)}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -312,7 +312,7 @@ function Table({ tableData }: { tableData: TableData }) {
                       padding: "6px",
                       fontWeight: "bold",
                     }}
-                  >{`${quaterTotal[quater]?.percent ?? "-"}`}</TableCell>
+                  >{`${quarterTotal[quarter]?.percent ?? "-"}`}</TableCell>
                 </>
               ))}
 
@@ -323,7 +323,7 @@ function Table({ tableData }: { tableData: TableData }) {
                   padding: "6px",
                   fontWeight: "bold",
                 }}
-              >{`${quaterTotal["total"]?.opps ?? "-"}`}</TableCell>
+              >{`${quarterTotal["total"]?.opps ?? "-"}`}</TableCell>
               <TableCell
                 sx={{
                   border: "1px solid #ddd",
@@ -332,7 +332,7 @@ function Table({ tableData }: { tableData: TableData }) {
                   fontWeight: "bold",
                 }}
               >
-                {formatCurrency(quaterTotal["total"]?.acv)}
+                {formatCurrency(quarterTotal["total"]?.acv)}
               </TableCell>
               <TableCell
                 sx={{
@@ -341,7 +341,7 @@ function Table({ tableData }: { tableData: TableData }) {
                   padding: "6px",
                   fontWeight: "bold",
                 }}
-              >{`${quaterTotal["total"]?.percent ?? "-"}`}</TableCell>
+              >{`${quarterTotal["total"]?.percent ?? "-"}`}</TableCell>
             </TableRow>
           </TableBody>
         </MUITable>

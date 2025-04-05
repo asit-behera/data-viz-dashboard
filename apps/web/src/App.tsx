@@ -13,6 +13,8 @@ import {
   Industry,
   TeamPerformance,
 } from "./pages";
+import { Provider } from "react-redux";
+import { store } from "./config/store";
 
 /* const darkTheme = createTheme({
   palette: {
@@ -48,15 +50,17 @@ function App() {
       <ThemeProvider
         theme={/* isDarkTheme ? lightTheme : darkTheme */ lightTheme}
       >
-        <Routes>
-          <Route element={<DashboardLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="industry" element={<Industry />} />
-            <Route path="customers" element={<Customer />} />
-            <Route path="acv-ranges" element={<AcvRanges />} />
-            <Route path="teams" element={<TeamPerformance />} />
-          </Route>
-        </Routes>
+        <Provider store={store}>
+          <Routes>
+            <Route element={<DashboardLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="industry" element={<Industry />} />
+              <Route path="customers" element={<Customer />} />
+              <Route path="acv-ranges" element={<AcvRanges />} />
+              <Route path="teams" element={<TeamPerformance />} />
+            </Route>
+          </Routes>
+        </Provider>
         <CssBaseline />
       </ThemeProvider>
     </BrowserRouter>
