@@ -1,14 +1,10 @@
 import { CustomerService } from "./index";
-/* import {
-  formatTable,
-  formatPieChart,
-  formatStackedBarChart,
-} from "./industry.utils"; */
-
 import { NextFunction, Request, Response } from "express";
 import formatTable from "../../utils/TableFormatter.util";
 import { successResponse } from "../../utils/Response";
 import { AppError } from "../../utils/AppError";
+import formatPieChart from "../../utils/PiechartFormatter.util";
+import formatGroupedBarChart from "../../utils/GroupedBarChartFormatter.util";
 
 const getCustomerTypes = async (
   req: Request,
@@ -21,18 +17,17 @@ const getCustomerTypes = async (
 
     const data = await CustomerService.getCustomerTypesData(); // raw json
 
-    let result;
+    let result: any = formatTable(data, "Cust_Type");
 
     switch (view) {
       case "pie":
-        //result = formatPieChart(data);
+        result = formatPieChart(result);
         break;
       case "bar":
-        //result = formatStackedBarChart(data);
+        result = formatGroupedBarChart(result);
         break;
-      case "table":
-        result = formatTable(data, "Cust_Type");
-        break;
+      /*   case "table":
+        break; */
     }
 
     res.json(successResponse(result));

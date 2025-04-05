@@ -27,7 +27,7 @@ type DataMap = {
   };
 };
 
-type FormattedData = {
+export type FormattedData = {
   sortedQuarters: string[];
   quarterTotal: QuarterTotals;
   keys: KeysMap;

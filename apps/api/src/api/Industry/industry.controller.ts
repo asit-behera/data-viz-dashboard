@@ -1,14 +1,10 @@
 import { IndustryService } from "./index";
-/* import {
-  formatTable,
-  formatPieChart,
-  formatStackedBarChart,
-} from "./industry.utils"; */
-
 import { NextFunction, Request, Response } from "express";
 import formatTable from "../../utils/TableFormatter.util";
 import { successResponse } from "../../utils/Response";
 import { AppError } from "../../utils/AppError";
+import formatPieChart from "../../utils/PiechartFormatter.util";
+import formatGroupedBarChart from "../../utils/GroupedBarChartFormatter.util";
 
 const getIndustry = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -17,18 +13,18 @@ const getIndustry = async (req: Request, res: Response, next: NextFunction) => {
 
     const data = await IndustryService.getIndustryData(); // raw json
 
-    let result;
+    let result: any = formatTable(data, "Acct_Industry");
 
     switch (view) {
       case "pie":
-        //result = formatPieChart(data);
+        result = formatPieChart(result);
         break;
       case "bar":
-        //result = formatStackedBarChart(data);
+        result = formatGroupedBarChart(result);
         break;
-      case "table":
-        result = formatTable(data, "Acct_Industry"); // could just be `data`
-        break;
+      /* case "table":
+        Removed this case as the formatted table data will be easy to compile for the other charts 
+        break; */
     }
 
     res.json(successResponse(result));

@@ -236,7 +236,7 @@ function Table({ tableData }: { tableData: TableData }) {
                             fontSize: "12px",
                             padding: "6px",
                           }}
-                        >{`${data[key][quarter]?.percent ?? "-"}`}</TableCell>
+                        >{`${data[key][quarter]?.percent ? data[key][quarter]?.percent + "%" : "-"}`}</TableCell>
                       </>
                     ))}
                     <TableCell
@@ -264,7 +264,7 @@ function Table({ tableData }: { tableData: TableData }) {
                         padding: "6px",
                         fontWeight: "bold",
                       }}
-                    >{`${data[key]["total"]?.percent ?? "-"}`}</TableCell>
+                    >{`${data[key]["total"]?.percent ? data[key]["total"]?.percent + "%" : "-"}`}</TableCell>
                   </TableRow>
                 </>
               );
@@ -312,7 +312,7 @@ function Table({ tableData }: { tableData: TableData }) {
                       padding: "6px",
                       fontWeight: "bold",
                     }}
-                  >{`${quarterTotal[quarter]?.percent ?? "-"}`}</TableCell>
+                  >{`${quarterTotal[quarter]?.percent ? quarterTotal[quarter]?.percent + "%" : "-"}`}</TableCell>
                 </>
               ))}
 
@@ -341,7 +341,7 @@ function Table({ tableData }: { tableData: TableData }) {
                   padding: "6px",
                   fontWeight: "bold",
                 }}
-              >{`${quarterTotal["total"]?.percent ?? "-"}`}</TableCell>
+              >{`${quarterTotal["total"]?.percent ? quarterTotal["total"]?.percent + "%" : "-"}`}</TableCell>
             </TableRow>
           </TableBody>
         </MUITable>
