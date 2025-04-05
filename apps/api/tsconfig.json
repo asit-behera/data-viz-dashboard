@@ -15,7 +15,7 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strict": true,
-    "lib": ["ES2015"],
+    "lib": ["ES2015", "ES2022"],
     "outDir": "./dist",
     "rootDir": "./src"
   },

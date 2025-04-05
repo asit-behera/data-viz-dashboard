@@ -6,7 +6,7 @@
  */
 
 import { createServer } from "node:http";
-import app from "./server";
+import app from "./app";
 
 const port = process.env.PORT || 3001;
 const server = createServer(app);
