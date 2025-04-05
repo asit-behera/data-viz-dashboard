@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { fetchTeamsTableData } from "../features/teams/teamsSlice";
 import { Table } from "../components";
+import { useAppDispatch, useAppSelector } from "../config/store";
 
 function TeamPerformance() {
-  const dispatch = useDispatch();
-  const { teamsData, loading, error } = useSelector((state) => state.teams);
+  const dispatch = useAppDispatch();
+  const { teamsData, loading, error } = useAppSelector((state) => state.teams);
 
   console.log({ teamsData, loading, error });
 
