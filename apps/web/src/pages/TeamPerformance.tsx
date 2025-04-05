@@ -10,7 +10,7 @@ function TeamPerformance() {
   console.log({ teamsData, loading, error });
 
   useEffect(() => {
-    dispatch(fetchTeamsTableData());
+    if (!teamsData) dispatch(fetchTeamsTableData());
   }, [dispatch]);
 
   return (
