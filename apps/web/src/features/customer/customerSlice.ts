@@ -1,30 +1,30 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { getTeamsView } from "./teamsAPI";
+import { getCustomerView } from "./customerAPI";
 import { AxiosError } from "axios";
 import { TableData } from "../../types/TableData.types";
 
-interface TeamsState {
-  teamsData: TableData | null;
+interface CustomerState {
+  customerData: TableData | null;
   loading: boolean;
   error: string | null;
 }
 // Initial state
-const initialState: TeamsState = {
-  teamsData: null,
+const initialState: CustomerState = {
+  customerData: null,
   loading: false,
   error: null,
 };
 
 // Async thunk
-export const fetchTeamsTableData = createAsyncThunk<
+export const fetchCustomerTableData = createAsyncThunk<
   TableData, // Return type
   void, // Argument type (no args)
   {
     rejectValue: string;
   }
->("teams/fetchTableData", async (_, thunkAPI) => {
+>("customer/fetchTableData", async (_, thunkAPI) => {
   try {
-    const response = await getTeamsView("table");
+    const response = await getCustomerView("table");
     return response.data.data as TableData;
   } catch (error) {
     const err = error as AxiosError;
@@ -35,25 +35,25 @@ export const fetchTeamsTableData = createAsyncThunk<
 });
 
 // Slice
-const teamsSlice = createSlice({
-  name: "teams",
+const customerSlice = createSlice({
+  name: "customer",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTeamsTableData.pending, (state) => {
+      .addCase(fetchCustomerTableData.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(
-        fetchTeamsTableData.fulfilled,
+        fetchCustomerTableData.fulfilled,
         (state, action: PayloadAction<TableData>) => {
           state.loading = false;
-          state.teamsData = action.payload;
+          state.customerData = action.payload;
         }
       )
       .addCase(
-        fetchTeamsTableData.rejected,
+        fetchCustomerTableData.rejected,
         (state, action: PayloadAction<string | undefined>) => {
           state.loading = false;
           state.error = action.payload ?? "Unknown error";
@@ -62,4 +62,4 @@ const teamsSlice = createSlice({
   },
 });
 
-export default teamsSlice.reducer;
+export default customerSlice.reducer;

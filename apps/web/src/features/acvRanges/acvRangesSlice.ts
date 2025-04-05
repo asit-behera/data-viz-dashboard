@@ -1,30 +1,30 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { getTeamsView } from "./teamsAPI";
+import { getACVRangesView } from "./acvRangesAPI";
 import { AxiosError } from "axios";
 import { TableData } from "../../types/TableData.types";
 
-interface TeamsState {
-  teamsData: TableData | null;
+interface ACVRangeState {
+  acvRangeData: TableData | null;
   loading: boolean;
   error: string | null;
 }
 // Initial state
-const initialState: TeamsState = {
-  teamsData: null,
+const initialState: ACVRangeState = {
+  acvRangeData: null,
   loading: false,
   error: null,
 };
 
 // Async thunk
-export const fetchTeamsTableData = createAsyncThunk<
+export const fetchACVRangeTableData = createAsyncThunk<
   TableData, // Return type
   void, // Argument type (no args)
   {
     rejectValue: string;
   }
->("teams/fetchTableData", async (_, thunkAPI) => {
+>("acvRange/fetchTableData", async (_, thunkAPI) => {
   try {
-    const response = await getTeamsView("table");
+    const response = await getACVRangesView("table");
     return response.data.data as TableData;
   } catch (error) {
     const err = error as AxiosError;
@@ -35,25 +35,25 @@ export const fetchTeamsTableData = createAsyncThunk<
 });
 
 // Slice
-const teamsSlice = createSlice({
-  name: "teams",
+const acvRangeSlice = createSlice({
+  name: "acvRange",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTeamsTableData.pending, (state) => {
+      .addCase(fetchACVRangeTableData.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(
-        fetchTeamsTableData.fulfilled,
+        fetchACVRangeTableData.fulfilled,
         (state, action: PayloadAction<TableData>) => {
           state.loading = false;
-          state.teamsData = action.payload;
+          state.acvRangeData = action.payload;
         }
       )
       .addCase(
-        fetchTeamsTableData.rejected,
+        fetchACVRangeTableData.rejected,
         (state, action: PayloadAction<string | undefined>) => {
           state.loading = false;
           state.error = action.payload ?? "Unknown error";
@@ -62,4 +62,4 @@ const teamsSlice = createSlice({
   },
 });
 
-export default teamsSlice.reducer;
+export default acvRangeSlice.reducer;
