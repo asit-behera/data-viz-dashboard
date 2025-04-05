@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { IndustryChart } from "../charts";
+//import { IndustryChart } from "../charts";
 import { useAppDispatch, useAppSelector } from "../config/store";
 import { fetchIndustryTableData } from "../features/industry/industrySlice";
 import { Table } from "../components";
@@ -19,7 +19,7 @@ function Industry() {
   return (
     <>
       <div>Industry</div>
-      <IndustryChart />
+
       {!loading && industryData && <Table tableData={industryData} />}
     </>
   );
