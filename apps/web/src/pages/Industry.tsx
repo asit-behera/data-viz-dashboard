@@ -1,11 +1,9 @@
 import { useEffect } from "react";
-import { IndustryChart } from "../charts";
 import { useAppDispatch, useAppSelector } from "../config/store";
 import { fetchIndustryTableData } from "../features/industry/industrySlice";
 import { Table } from "../components";
 import { Grid } from "@mui/material";
-import IndustryGroupBarChart from "../charts/Industry/IndustryGroupBarChart";
-import IndustryDoughnutChart from "../charts/Industry/IndustryDoughnutChart";
+import { DoughnutChartWrapper, GroupedBarChartWrapper } from "../charts";
 
 function Industry() {
   const dispatch = useAppDispatch();
@@ -36,7 +34,7 @@ function Industry() {
           background: "yellow",
         }} */
       >
-        <IndustryGroupBarChart
+        <GroupedBarChartWrapper
           data={[
             { x: "2023-Q3", y: 1010484, group: "Manufacturing" },
             { x: "2023-Q4", y: 519986, group: "Manufacturing" },
@@ -71,7 +69,7 @@ function Industry() {
         />
       </Grid>
       <Grid size={5}>
-        <IndustryDoughnutChart
+        <DoughnutChartWrapper
           data={{
             data: [
               { label: "Manufacturing", value: 2889904, percent: 46 },

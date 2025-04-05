@@ -70,8 +70,8 @@ const createDoughnutChart = ({
 
   const pieData = pie(data);
 
-  const arcs = g
-    .selectAll("path")
+  /* const arcs = */
+  g.selectAll("path")
     .data(pieData)
     .enter()
     .append("path")

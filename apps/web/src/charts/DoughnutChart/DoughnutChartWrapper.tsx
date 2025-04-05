@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import createDoughnutChart, { DoughnutData } from "../DoughnutChart";
+import createDoughnutChart, { DoughnutData } from "./DoughnutChart";
 
-export const IndustryDoughnutChart = ({
+export const DoughnutChartWrapper = ({
   data,
 }: {
   data: { data: DoughnutData[]; total: number };
@@ -41,4 +41,4 @@ export const IndustryDoughnutChart = ({
   );
 };
 
-export default IndustryDoughnutChart;
+export default DoughnutChartWrapper;

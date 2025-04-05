@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import createGroupedBarChart, { GroupedBarData } from "../GoupedBarChat";
+import createGroupedBarChart, { GroupedBarData } from "./GoupedBarChat";
 
-export const IndustryGroupBarChart = ({ data }: { data: GroupedBarData[] }) => {
+export const GroupBarChartWrapper = ({ data }: { data: GroupedBarData[] }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const containerRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 300 });
@@ -37,4 +37,4 @@ export const IndustryGroupBarChart = ({ data }: { data: GroupedBarData[] }) => {
   );
 };
 
-export default IndustryGroupBarChart;
+export default GroupBarChartWrapper;
