@@ -1,3 +1,4 @@
+import path from "node:path";
 import swaggerJsdoc from "swagger-jsdoc";
 
 const options = {
@@ -17,7 +18,10 @@ const options = {
       },
     ],
   },
-  apis: [__dirname + "/../api/**/*routes.ts"],
+  apis:
+    process.env.NODE_ENV === "production"
+      ? [path.resolve(__dirname, "../api/**/*routes.js")]
+      : [path.resolve(__dirname + "/../api/**/*routes.ts")],
 };
 
 export const specs = swaggerJsdoc(options);
