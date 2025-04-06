@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../config/store";
 import { Table } from "../components";
-import { Grid, Paper } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 import { SingleLineChartWrapper, StackedBarChartWrapper } from "../charts";
 import {
   fetchACVRangeBarChartData,
@@ -40,7 +40,15 @@ function AcvRanges() {
 
   return (
     <Grid container spacing={1}>
-      <Grid size={12}>AcvRanges</Grid>
+      <Grid size={12}>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 1, pt: 1, fontWeight: "600" }}
+        >
+          ACV Ranges
+        </Typography>
+      </Grid>
       <Grid size={{ sm: 12, md: 6 }}>
         <Paper
           elevation={0}

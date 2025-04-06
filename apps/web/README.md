@@ -1,54 +1,30 @@
-# React + TypeScript + Vite
+# Data Viz - Full-Stack Web Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a full-stack web application built with React, Node.js, Typescript. It allows users to visualise data through multiple charts.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Check out the live demo of the application here:  
+[Live Demo](https://data-viz-dashboard.asitx.dev)
 
-## Expanding the ESLint configuration
+## Screenshots
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+![Industry (Dark Mode)]()  
+_Caption: Industry Page_
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+![Customer (Dark Mode)](screenshot1.png)  
+_Caption: Customer Page_
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+![ACV Ranges (Dark Mode)]()  
+_Caption: ACV Ranges Page_
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+![Teams (Light Mode)](screenshot1.png)  
+_Caption: Teams Page_
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+![Industry Table (Light Mode)]()  
+_Caption: Industry Page Table with Drawer_
+
+## Technologies Used
+
+- **Frontend:** React, MUI, D3.js
+- **Backend:** Node.js, Express
