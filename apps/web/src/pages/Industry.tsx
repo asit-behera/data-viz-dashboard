@@ -1,95 +1,53 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../config/store";
-import { fetchIndustryTableData } from "../features/industry/industrySlice";
 import { Table } from "../components";
 import { Grid, Paper } from "@mui/material";
 import { DoughnutChartWrapper, GroupBarChartWrapper } from "../charts";
+import {
+  fetchIndustryBarData,
+  fetchIndustryPieData,
+  fetchIndustryTableData,
+} from "../features/industry/industryThunks";
 
 function Industry() {
   const dispatch = useAppDispatch();
-  const { industryData, loading, error } = useAppSelector(
-    (state) => state.industry
-  );
+  const {
+    industryData,
+    loading,
+    error,
+    industryBarData,
+    isIndustryBardataLoading,
+    industryPieData,
+    isIndustryPieDataLoading,
+  } = useAppSelector((state) => state.industry);
 
   console.log({ industryData, loading, error });
 
   useEffect(() => {
     if (!industryData) dispatch(fetchIndustryTableData());
+    if (!industryBarData) dispatch(fetchIndustryBarData());
+    if (!industryPieData) dispatch(fetchIndustryPieData());
   }, [dispatch]);
-
-  /* return (
-    <>
-      <div>Industry</div>
-
-      
-    </>
-  ); */
 
   return (
     <Grid container spacing={1}>
       <Grid size={12}>Industry</Grid>
-      <Grid
-        size={{ sm: 12, md: 7 }}
-        /* sx={{
-          background: "yellow",
-        }} */
-      >
+      <Grid size={{ sm: 12, md: 7 }}>
         <Paper elevation={0}>
-          <GroupBarChartWrapper
-            height={400}
-            data={[
-              { x: "2023-Q3", y: 1010484, group: "Manufacturing" },
-              { x: "2023-Q4", y: 519986, group: "Manufacturing" },
-              { x: "2024-Q1", y: 809109, group: "Manufacturing" },
-              { x: "2024-Q2", y: 550325, group: "Manufacturing" },
-              { x: "2023-Q3", y: 875742, group: "Transportation" },
-              { x: "2023-Q4", y: 380430, group: "Transportation" },
-              { x: "2024-Q1", y: 353472, group: "Transportation" },
-              { x: "2024-Q2", y: 93597, group: "Transportation" },
-              { x: "2023-Q3", y: 168050, group: "Wholesalers" },
-              { x: "2023-Q4", y: 233000, group: "Wholesalers" },
-              { x: "2024-Q1", y: 171211, group: "Wholesalers" },
-              { x: "2024-Q2", y: 25500, group: "Wholesalers" },
-              { x: "2023-Q3", y: 57966, group: "Tecnology Svcs" },
-              { x: "2023-Q4", y: 218578, group: "Tecnology Svcs" },
-              { x: "2024-Q1", y: 110339, group: "Tecnology Svcs" },
-              { x: "2024-Q2", y: 136044, group: "Tecnology Svcs" },
-              { x: "2023-Q3", y: 36476, group: "Retail" },
-              { x: "2023-Q4", y: 100240, group: "Retail" },
-              { x: "2024-Q1", y: 168722, group: "Retail" },
-              { x: "2024-Q2", y: 24200, group: "Retail" },
-              { x: "2023-Q3", y: 106744, group: "Financial Svcs" },
-              { x: "2023-Q4", y: 20696, group: "Financial Svcs" },
-              { x: "2024-Q1", y: 6383, group: "Financial Svcs" },
-              { x: "2024-Q2", y: 42799, group: "Financial Svcs" },
-              { x: "2024-Q1", y: 51000, group: "Education" },
-              { x: "2023-Q3", y: 49880, group: "Others" },
-              { x: "2023-Q4", y: 39226, group: "Others" },
-              { x: "2024-Q1", y: 3000, group: "Others" },
-              { x: "2024-Q2", y: 0, group: "Others" },
-            ]}
-          />
+          {!isIndustryBardataLoading && industryBarData && (
+            <GroupBarChartWrapper height={400} data={industryBarData} />
+          )}
         </Paper>
       </Grid>
       <Grid size={{ sm: 12, md: 5 }}>
         <Paper elevation={0}>
-          <DoughnutChartWrapper
-            widthScaling={1}
-            height={400}
-            data={{
-              data: [
-                { label: "Manufacturing", value: 2889904, percent: 46 },
-                { label: "Transportation", value: 1703241, percent: 27 },
-                { label: "Wholesalers", value: 597761, percent: 10 },
-                { label: "Tecnology Svcs", value: 522927, percent: 8 },
-                { label: "Retail", value: 329638, percent: 5 },
-                { label: "Financial Svcs", value: 176622, percent: 3 },
-                { label: "Education", value: 51000, percent: 1 },
-                { label: "Others", value: 92106, percent: 1 },
-              ],
-              total: 6274093,
-            }}
-          />
+          {!isIndustryPieDataLoading && industryPieData && (
+            <DoughnutChartWrapper
+              widthScaling={1}
+              height={400}
+              data={industryPieData}
+            />
+          )}
         </Paper>
       </Grid>
       <Grid size={12}>

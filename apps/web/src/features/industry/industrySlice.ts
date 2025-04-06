@@ -1,38 +1,36 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { getIndustryView } from "./industryAPI";
-import { AxiosError } from "axios";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TableData } from "../../types/TableData.types";
+import {
+  fetchIndustryBarData,
+  fetchIndustryPieData,
+  fetchIndustryTableData,
+} from "./industryThunks";
+import { GroupedBarData } from "../../charts/GroupedBarChart/GoupedBarChat";
+import { DoughnutDataMeta } from "../../charts/DoughnutChart/DoughnutChart";
 
 interface IndustryState {
   industryData: TableData | null;
   loading: boolean;
   error: string | null;
+
+  industryBarData: GroupedBarData[] | null;
+  isIndustryBardataLoading: boolean;
+
+  industryPieData: DoughnutDataMeta | null;
+  isIndustryPieDataLoading: boolean;
 }
 // Initial state
 const initialState: IndustryState = {
   industryData: null,
   loading: false,
   error: null,
-};
 
-// Async thunk
-export const fetchIndustryTableData = createAsyncThunk<
-  TableData, // Return type
-  void, // Argument type (no args)
-  {
-    rejectValue: string;
-  }
->("industry/fetchTableData", async (_, thunkAPI) => {
-  try {
-    const response = await getIndustryView("table");
-    return response.data.data as TableData;
-  } catch (error) {
-    const err = error as AxiosError;
-    return thunkAPI.rejectWithValue(
-      (err.response?.data as string) || "Something went wrong"
-    );
-  }
-});
+  industryBarData: null,
+  isIndustryBardataLoading: false,
+
+  industryPieData: null,
+  isIndustryPieDataLoading: false,
+};
 
 // Slice
 const industrySlice = createSlice({
@@ -56,6 +54,44 @@ const industrySlice = createSlice({
         fetchIndustryTableData.rejected,
         (state, action: PayloadAction<string | undefined>) => {
           state.loading = false;
+          state.error = action.payload ?? "Unknown error";
+        }
+      )
+
+      .addCase(fetchIndustryBarData.pending, (state) => {
+        state.isIndustryBardataLoading = true;
+        state.error = null;
+      })
+      .addCase(
+        fetchIndustryBarData.fulfilled,
+        (state, action: PayloadAction<GroupedBarData[]>) => {
+          state.isIndustryBardataLoading = false;
+          state.industryBarData = action.payload;
+        }
+      )
+      .addCase(
+        fetchIndustryBarData.rejected,
+        (state, action: PayloadAction<string | undefined>) => {
+          state.isIndustryBardataLoading = false;
+          state.error = action.payload ?? "Unknown error";
+        }
+      )
+
+      .addCase(fetchIndustryPieData.pending, (state) => {
+        state.isIndustryPieDataLoading = true;
+        state.error = null;
+      })
+      .addCase(
+        fetchIndustryPieData.fulfilled,
+        (state, action: PayloadAction<DoughnutDataMeta>) => {
+          state.isIndustryPieDataLoading = false;
+          state.industryPieData = action.payload;
+        }
+      )
+      .addCase(
+        fetchIndustryPieData.rejected,
+        (state, action: PayloadAction<string | undefined>) => {
+          state.isIndustryPieDataLoading = false;
           state.error = action.payload ?? "Unknown error";
         }
       );
