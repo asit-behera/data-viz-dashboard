@@ -10,6 +10,7 @@ type GroupedBarChartArgs = {
   svgRef?: React.RefObject<SVGSVGElement | null>;
   width: number;
   height?: number;
+  theme: any;
 };
 
 const createGroupedBarChart = ({
@@ -17,6 +18,7 @@ const createGroupedBarChart = ({
   svgRef,
   width,
   height = 500,
+  theme,
 }: GroupedBarChartArgs) => {
   if (!data.length) return;
 
@@ -66,7 +68,7 @@ const createGroupedBarChart = ({
         .tickFormat(() => "")
     )
     .selectAll("line")
-    .attr("stroke", "#ccc");
+    .attr("stroke", theme.palette.divider);
   //.attr("stroke-opacity", 0.5)
   // .attr("stroke-dasharray", "2,2");
 
@@ -116,8 +118,7 @@ const createGroupedBarChart = ({
     .text((d) => d)
     .style("font-size", "12px")
     .attr("alignment-baseline", "middle")
-    .style("fill", "#fff");
-  //.style("fill", theme === "dark" ? "#fff" : "#000");
+    .style("fill", theme.palette.text.primary);
 
   return svgRef ? undefined : svg.node();
 };

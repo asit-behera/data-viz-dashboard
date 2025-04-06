@@ -16,7 +16,7 @@ function Dashboard() {
 
   return (
     <>
-      <AppBar toggleDrawer={toggleDrawer} />
+      <AppBar toggleDrawer={toggleDrawer} isDrawerOpen={open} />
       <Drawer isOpen={open} toggleDrawer={toggleDrawer} />
       <Box
         component="main"

@@ -63,7 +63,7 @@ function Table({ tableData }: { tableData: TableData }) {
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: theme.palette.background.default, // Uses MUI theme
-        borderRadius: 2,
+        borderRadius: 1,
         overflow: "hidden",
       }}
     >
@@ -75,7 +75,7 @@ function Table({ tableData }: { tableData: TableData }) {
                 sx={{
                   color: "white",
                   fontWeight: "bold",
-                  border: "1px solid #ddd",
+                  border: `1px solid ${theme.palette.divider}`,
                   fontSize: "12px",
                   padding: "6px",
                 }}
@@ -90,7 +90,7 @@ function Table({ tableData }: { tableData: TableData }) {
                   sx={{
                     color: "white",
                     fontWeight: "bold",
-                    border: "1px solid #ddd",
+                    border: `1px solid ${theme.palette.divider}`,
                     fontSize: "12px",
                     padding: "6px",
                   }}
@@ -104,7 +104,7 @@ function Table({ tableData }: { tableData: TableData }) {
                 sx={{
                   color: "white",
                   fontWeight: "bold",
-                  border: "1px solid #ddd",
+                  border: `1px solid ${theme.palette.divider}`,
                   fontSize: "12px",
                   padding: "6px",
                 }}
@@ -115,7 +115,7 @@ function Table({ tableData }: { tableData: TableData }) {
             <TableRow>
               <TableCell
                 sx={{
-                  border: "1px solid #ddd",
+                  border: `1px solid ${theme.palette.divider}`,
                   fontWeight: "bold",
                   fontSize: "12px",
                   padding: "6px",
@@ -127,7 +127,7 @@ function Table({ tableData }: { tableData: TableData }) {
                 <>
                   <TableCell
                     sx={{
-                      border: "1px solid #ddd",
+                      border: `1px solid ${theme.palette.divider}`,
                       fontSize: "12px",
                       padding: "6px",
                       fontWeight: "bold",
@@ -137,7 +137,7 @@ function Table({ tableData }: { tableData: TableData }) {
                   </TableCell>
                   <TableCell
                     sx={{
-                      border: "1px solid #ddd",
+                      border: `1px solid ${theme.palette.divider}`,
                       fontSize: "12px",
                       padding: "6px",
                       fontWeight: "bold",
@@ -147,7 +147,7 @@ function Table({ tableData }: { tableData: TableData }) {
                   </TableCell>
                   <TableCell
                     sx={{
-                      border: "1px solid #ddd",
+                      border: `1px solid ${theme.palette.divider}`,
                       fontSize: "12px",
                       padding: "6px",
                       fontWeight: "bold",
@@ -160,7 +160,7 @@ function Table({ tableData }: { tableData: TableData }) {
               <>
                 <TableCell
                   sx={{
-                    border: "1px solid #ddd",
+                    border: `1px solid ${theme.palette.divider}`,
                     fontSize: "12px",
                     padding: "6px",
                     fontWeight: "bold",
@@ -170,7 +170,7 @@ function Table({ tableData }: { tableData: TableData }) {
                 </TableCell>
                 <TableCell
                   sx={{
-                    border: "1px solid #ddd",
+                    border: `1px solid ${theme.palette.divider}`,
                     fontSize: "12px",
                     padding: "6px",
                     fontWeight: "bold",
@@ -180,7 +180,7 @@ function Table({ tableData }: { tableData: TableData }) {
                 </TableCell>
                 <TableCell
                   sx={{
-                    border: "1px solid #ddd",
+                    border: `1px solid ${theme.palette.divider}`,
                     fontSize: "12px",
                     padding: "6px",
                     fontWeight: "bold",
@@ -205,7 +205,7 @@ function Table({ tableData }: { tableData: TableData }) {
                     <TableCell
                       /* sx={{ fontWeight: index === 2 ? "bold" : "normal" }} */
                       sx={{
-                        border: "1px solid #ddd",
+                        border: `1px solid ${theme.palette.divider}`,
                         fontSize: "12px",
                         padding: "6px",
                       }}
@@ -216,14 +216,14 @@ function Table({ tableData }: { tableData: TableData }) {
                       <>
                         <TableCell
                           sx={{
-                            border: "1px solid #ddd",
+                            border: `1px solid ${theme.palette.divider}`,
                             fontSize: "12px",
                             padding: "6px",
                           }}
                         >{`${data[key][quarter]?.opps ?? "-"}`}</TableCell>
                         <TableCell
                           sx={{
-                            border: "1px solid #ddd",
+                            border: `1px solid ${theme.palette.divider}`,
                             fontSize: "12px",
                             padding: "6px",
                           }}
@@ -232,7 +232,7 @@ function Table({ tableData }: { tableData: TableData }) {
                         </TableCell>
                         <TableCell
                           sx={{
-                            border: "1px solid #ddd",
+                            border: `1px solid ${theme.palette.divider}`,
                             fontSize: "12px",
                             padding: "6px",
                           }}
@@ -241,7 +241,7 @@ function Table({ tableData }: { tableData: TableData }) {
                     ))}
                     <TableCell
                       sx={{
-                        border: "1px solid #ddd",
+                        border: `1px solid ${theme.palette.divider}`,
                         fontSize: "12px",
                         padding: "6px",
                         fontWeight: "bold",
@@ -249,7 +249,7 @@ function Table({ tableData }: { tableData: TableData }) {
                     >{`${data[key]["total"]?.opps ?? "-"}`}</TableCell>
                     <TableCell
                       sx={{
-                        border: "1px solid #ddd",
+                        border: `1px solid ${theme.palette.divider}`,
                         fontSize: "12px",
                         padding: "6px",
                         fontWeight: "bold",
@@ -259,7 +259,7 @@ function Table({ tableData }: { tableData: TableData }) {
                     </TableCell>
                     <TableCell
                       sx={{
-                        border: "1px solid #ddd",
+                        border: `1px solid ${theme.palette.divider}`,
                         fontSize: "12px",
                         padding: "6px",
                         fontWeight: "bold",
@@ -271,14 +271,14 @@ function Table({ tableData }: { tableData: TableData }) {
             })}
             <TableRow
               sx={{
-                backgroundColor: "#E3F2FD",
+                backgroundColor: theme.palette.secondary.main,
                 fontWeight: "bold",
               }}
             >
               <TableCell
                 sx={{ fontWeight: "bold" }}
                 /* sx={{
-                  border: "1px solid #ddd",
+                  border: `1px solid ${theme.palette.divider}`,
                   fontSize: "12px",
                   padding: "6px",
                 }} */
@@ -289,7 +289,7 @@ function Table({ tableData }: { tableData: TableData }) {
                 <>
                   <TableCell
                     sx={{
-                      border: "1px solid #ddd",
+                      border: `1px solid ${theme.palette.divider}`,
                       fontSize: "12px",
                       padding: "6px",
                       fontWeight: "bold",
@@ -297,7 +297,7 @@ function Table({ tableData }: { tableData: TableData }) {
                   >{`${quarterTotal[quarter]?.opps ?? "-"}`}</TableCell>
                   <TableCell
                     sx={{
-                      border: "1px solid #ddd",
+                      border: `1px solid ${theme.palette.divider}`,
                       fontSize: "12px",
                       padding: "6px",
                       fontWeight: "bold",
@@ -307,7 +307,7 @@ function Table({ tableData }: { tableData: TableData }) {
                   </TableCell>
                   <TableCell
                     sx={{
-                      border: "1px solid #ddd",
+                      border: `1px solid ${theme.palette.divider}`,
                       fontSize: "12px",
                       padding: "6px",
                       fontWeight: "bold",
@@ -318,7 +318,7 @@ function Table({ tableData }: { tableData: TableData }) {
 
               <TableCell
                 sx={{
-                  border: "1px solid #ddd",
+                  border: `1px solid ${theme.palette.divider}`,
                   fontSize: "12px",
                   padding: "6px",
                   fontWeight: "bold",
@@ -326,7 +326,7 @@ function Table({ tableData }: { tableData: TableData }) {
               >{`${quarterTotal["total"]?.opps ?? "-"}`}</TableCell>
               <TableCell
                 sx={{
-                  border: "1px solid #ddd",
+                  border: `1px solid ${theme.palette.divider}`,
                   fontSize: "12px",
                   padding: "6px",
                   fontWeight: "bold",
@@ -336,7 +336,7 @@ function Table({ tableData }: { tableData: TableData }) {
               </TableCell>
               <TableCell
                 sx={{
-                  border: "1px solid #ddd",
+                  border: `1px solid ${theme.palette.divider}`,
                   fontSize: "12px",
                   padding: "6px",
                   fontWeight: "bold",

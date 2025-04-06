@@ -16,6 +16,7 @@ type DoughnutChartArgs = {
   innerRadiusRatio?: number;
   showLabels?: boolean;
   formatLabel?: (d: DoughnutData) => string;
+  theme: any;
 };
 
 const defaultFormatter = (d: DoughnutData) => `${d.label} (${d.percent}%)`;
@@ -27,6 +28,7 @@ const createDoughnutChart = ({
   height = 500,
   innerRadiusRatio = 0.5,
   showLabels = true,
+  theme,
   formatLabel = defaultFormatter,
 }: DoughnutChartArgs) => {
   if (!data.length) return;
@@ -108,7 +110,7 @@ const createDoughnutChart = ({
       .data(labelNodes)
       .enter()
       .append("polyline")
-      .attr("stroke", "black")
+      .attr("stroke", theme.palette.text.primary)
       .attr("stroke-width", 1)
       .attr("fill", "none")
       .attr("points", (d) => {
@@ -129,7 +131,8 @@ const createDoughnutChart = ({
             .append("tspan")
             .text(line)
             .attr("x", 0)
-            .attr("dy", i === 0 ? 0 : "1.2em");
+            .attr("dy", i === 0 ? 0 : "1.2em")
+            .attr("fill", theme.palette.text.primary);
         });
       })
       .attr("transform", (d) => `translate(${d.x}, ${d.y})`)
@@ -143,14 +146,16 @@ const createDoughnutChart = ({
     .style("font-size", "14px")
     .style("font-weight", "bold")
     .attr("dy", "-0.4em")
-    .text("Total");
+    .text("Total")
+    .attr("fill", theme.palette.text.primary);
 
   g.append("text")
     .attr("text-anchor", "middle")
     .style("font-size", "16px")
     .style("font-weight", "bold")
     .attr("dy", "1em")
-    .text(`$${total}K`);
+    .text(`$${total}K`)
+    .attr("fill", theme.palette.text.primary);
 
   /*   const legend = svg
     .append("g")

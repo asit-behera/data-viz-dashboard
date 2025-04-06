@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import createDoughnutChart, { DoughnutDataMeta } from "./DoughnutChart";
+import { useTheme } from "@mui/material";
 
 export const DoughnutChartWrapper = ({
   data,
@@ -10,6 +11,7 @@ export const DoughnutChartWrapper = ({
   widthScaling?: number;
   height?: number;
 }) => {
+  const theme = useTheme();
   const svgRef = useRef<SVGSVGElement | null>(null);
   const containerRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 300 });
@@ -39,9 +41,10 @@ export const DoughnutChartWrapper = ({
         svgRef,
         width: dimensions.width / widthScaling,
         height,
+        theme,
       });
     }
-  }, [data, dimensions]);
+  }, [data, dimensions, theme.palette.mode]);
 
   return (
     <div ref={containerRef} style={{ width: "100%" }}>

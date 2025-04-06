@@ -9,6 +9,7 @@ type StackedBarChartOptions<T> = {
   getX?: (d: T) => string;
   getGroup?: (d: T) => string;
   getValue?: (d: T) => number;
+  theme: any;
 };
 
 const createStackedBarChart = ({
@@ -19,6 +20,7 @@ const createStackedBarChart = ({
   getX = (d) => d.x,
   getGroup = (d) => d.group,
   getValue = (d) => d.y,
+  theme,
 }: StackedBarChartOptions<GroupedBarData>) => {
   if (!data || !svgRef.current) return;
 
@@ -64,7 +66,7 @@ const createStackedBarChart = ({
     .range([0, chartWidth])
     .padding(0.2);
 
-  const yMax = d3.max(stackedData, (layer) => d3.max(layer, (d) => d[1]))!;
+  const yMax = d3.max(stackedData, (layer) => d3.max(layer, (d) => d[1])) || 0;
   const yScale = d3
     .scaleLinear()
     .domain([0, yMax])
@@ -80,7 +82,7 @@ const createStackedBarChart = ({
         .tickFormat(() => "")
     )
     .selectAll("line")
-    .attr("stroke", "#fff");
+    .attr("stroke", theme.palette.divider);
 
   const colorScale = d3.scaleOrdinal(d3.schemeTableau10).domain(groups);
 
@@ -130,7 +132,7 @@ const createStackedBarChart = ({
       .attr("y", 10)
       .attr("font-size", "12px")
       .text(group)
-      .style("fill", "#fff");
+      .style("fill", theme.palette.text.primary);
   });
 };
 

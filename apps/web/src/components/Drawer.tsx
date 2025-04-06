@@ -12,6 +12,7 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import MoneyIcon from "@mui/icons-material/Money";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { useNavigate } from "react-router";
+import { useTheme } from "@mui/material";
 
 interface DrawerProps {
   isOpen: boolean;
@@ -24,6 +25,7 @@ const collapsedWidth = 60;
 
 export default function Drawer({ isOpen, toggleDrawer }: DrawerProps) {
   const navigate = useNavigate();
+  const theme = useTheme();
   const DrawerList = (
     <Box
       sx={{ width: isOpen ? drawerWidth : collapsedWidth }}
@@ -108,9 +110,10 @@ export default function Drawer({ isOpen, toggleDrawer }: DrawerProps) {
           [`& .MuiDrawer-paper`]: {
             width: isOpen ? drawerWidth : collapsedWidth,
             boxSizing: "border-box",
-            top: appBarHeight, // Offset the list from the top
-            height: `calc(100% - ${appBarHeight}px)`, // Ensure it doesn't overlap the AppBar
+            top: appBarHeight,
+            height: `calc(100% - ${appBarHeight}px)`,
             overflow: "hidden",
+            borderRight: `1px dashed ${theme.palette.divider}`,
           },
         }}
       >
