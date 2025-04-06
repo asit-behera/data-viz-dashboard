@@ -8,6 +8,7 @@ import {
   fetchCustomerPieData,
   fetchCustomerTableData,
 } from "../features/customer/customerThunks";
+import SkeletonLoader from "../components/SkeletonLoader";
 
 function Customer() {
   const dispatch = useAppDispatch();
@@ -26,6 +27,9 @@ function Customer() {
     if (!customerBarData) dispatch(fetchCustomerBarData());
     if (!customerPieData) dispatch(fetchCustomerPieData());
   }, [dispatch]);
+
+  if (loading || isCustomerBarDataLoading || isCustomerPieDataLoading)
+    return <SkeletonLoader />;
 
   return (
     <Grid container spacing={1}>

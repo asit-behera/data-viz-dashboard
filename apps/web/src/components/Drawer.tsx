@@ -60,7 +60,7 @@ export default function Drawer({ isOpen, toggleDrawer }: DrawerProps) {
         <ListItem disablePadding>
           <ListItemButton
             onClick={() => {
-              navigate("/Customers");
+              navigate("/customers");
             }}
           >
             <ListItemIcon>
@@ -84,7 +84,7 @@ export default function Drawer({ isOpen, toggleDrawer }: DrawerProps) {
         <ListItem disablePadding>
           <ListItemButton
             onClick={() => {
-              navigate("/Teams");
+              navigate("/teams");
             }}
           >
             <ListItemIcon>

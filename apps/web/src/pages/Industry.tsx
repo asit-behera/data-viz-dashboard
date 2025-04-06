@@ -8,6 +8,7 @@ import {
   fetchIndustryPieData,
   fetchIndustryTableData,
 } from "../features/industry/industryThunks";
+import SkeletonLoader from "../components/SkeletonLoader";
 
 function Industry() {
   const dispatch = useAppDispatch();
@@ -26,6 +27,9 @@ function Industry() {
     if (!industryBarData) dispatch(fetchIndustryBarData());
     if (!industryPieData) dispatch(fetchIndustryPieData());
   }, [dispatch]);
+
+  if (loading || isIndustryBardataLoading || isIndustryPieDataLoading)
+    return <SkeletonLoader />;
 
   return (
     <Grid container spacing={1}>

@@ -8,6 +8,7 @@ import {
   fetchACVRangeLineChartData,
   fetchACVRangeTableData,
 } from "../features/acvRanges/acvRangesThunks";
+import SkeletonLoader from "../components/SkeletonLoader";
 
 function AcvRanges() {
   const dispatch = useAppDispatch();
@@ -29,6 +30,13 @@ function AcvRanges() {
     if (!acvRangeLineChartData) dispatch(fetchACVRangeLineChartData());
     if (!acvRangeBarChartData) dispatch(fetchACVRangeBarChartData());
   }, [dispatch]);
+
+  if (
+    isAcvBarChartDataLoading ||
+    isAcvLineChartDataLoading ||
+    isAcvtableDataLoading
+  )
+    return <SkeletonLoader />;
 
   return (
     <Grid container spacing={1}>

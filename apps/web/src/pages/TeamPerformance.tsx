@@ -8,6 +8,7 @@ import {
   fetchTeamsPieData,
   fetchTeamsTableData,
 } from "../features/teams/teamsThunks";
+import SkeletonLoader from "../components/SkeletonLoader";
 
 function TeamPerformance() {
   const dispatch = useAppDispatch();
@@ -26,6 +27,9 @@ function TeamPerformance() {
     if (!teamBarData) dispatch(fetchTeamsBarData());
     if (!teamPieData) dispatch(fetchTeamsPieData());
   }, [dispatch]);
+
+  if (loading || isTeamBarDataLoading || isTeamPieDataLoading)
+    return <SkeletonLoader />;
 
   return (
     <Grid container spacing={1}>
