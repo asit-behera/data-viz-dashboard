@@ -10,6 +10,8 @@ import { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import ApiIcon from "@mui/icons-material/Api";
+import MonitorHeartIcon from "@mui/icons-material/MonitorHeart";
 
 interface AppBarProps {
   toggleDrawer: () => void;
@@ -61,6 +63,45 @@ export default function AppBar({ toggleDrawer, isDrawerOpen }: AppBarProps) {
           >
             Data Viz
           </Typography>
+
+          <IconButton
+            size="large"
+            color="inherit"
+            aria-label="menu"
+            onClick={() => {
+              window.open(
+                "https://data-viz-dashboard.asitx.dev/api-docs",
+                "_blank"
+              );
+            }}
+            sx={{
+              mr: 2,
+              padding: "6px",
+              //border: `1px solid ${theme.palette.divider}`,
+              borderRadius: "9px",
+              backgroundColor: theme.palette.background.paper,
+            }}
+          >
+            <ApiIcon color="primary" />
+          </IconButton>
+
+          <IconButton
+            size="large"
+            color="inherit"
+            aria-label="menu"
+            onClick={() => {
+              window.open("https://1np3l5jd.status.cron-job.org/", "_blank");
+            }}
+            sx={{
+              mr: 2,
+              padding: "6px",
+              //border: `1px solid ${theme.palette.divider}`,
+              borderRadius: "9px",
+              backgroundColor: theme.palette.background.paper,
+            }}
+          >
+            <MonitorHeartIcon color="primary" />
+          </IconButton>
 
           <IconButton
             size="large"

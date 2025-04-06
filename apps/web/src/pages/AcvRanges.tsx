@@ -34,7 +34,6 @@ function AcvRanges() {
     <Grid container spacing={1}>
       <Grid size={12}>AcvRanges</Grid>
       <Grid size={{ sm: 12, md: 6 }}>
-        {/* Average Deal Size */}
         <Paper
           elevation={0}
           sx={{
@@ -43,15 +42,24 @@ function AcvRanges() {
           }}
         >
           {!isAcvLineChartDataLoading && acvRangeLineChartData && (
-            <SingleLineChartWrapper height={400} data={acvRangeLineChartData} />
+            <SingleLineChartWrapper
+              height={400}
+              data={acvRangeLineChartData}
+              xAxisLabel={"Closed Fiscal Quarter"}
+              yAxisLabel={"Average ACV per oops"}
+            />
           )}
-          Average Deal Size
         </Paper>
       </Grid>
       <Grid size={{ sm: 12, md: 6 }}>
         <Paper elevation={0}>
           {!isAcvBarChartDataLoading && acvRangeBarChartData && (
-            <StackedBarChartWrapper height={400} data={acvRangeBarChartData} />
+            <StackedBarChartWrapper
+              height={415}
+              data={acvRangeBarChartData}
+              xAxisLabel={"Closed Fiscal Quarter"}
+              yAxisLabel={"ACV"}
+            />
           )}
         </Paper>
       </Grid>

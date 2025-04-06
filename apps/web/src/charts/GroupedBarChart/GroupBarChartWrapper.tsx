@@ -6,10 +6,14 @@ export const GroupBarChartWrapper = ({
   data,
   widthScaling = 1,
   height,
+  xAxisLabel,
+  yAxisLabel,
 }: {
   data: GroupedBarData[];
   widthScaling?: number;
   height?: number;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
 }) => {
   const theme = useTheme();
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -42,6 +46,8 @@ export const GroupBarChartWrapper = ({
         width: dimensions.width / widthScaling,
         height,
         theme,
+        xAxisLabel,
+        yAxisLabel,
       });
     }
   }, [data, dimensions, theme.palette.mode]);

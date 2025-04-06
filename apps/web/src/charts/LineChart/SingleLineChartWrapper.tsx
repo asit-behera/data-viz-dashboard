@@ -1,15 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import createSingleLineChart, { SingleLineDataPoint } from "./SingleLineChart";
+import { useTheme } from "@mui/material";
 
 export const SingleLineChartWrapper = ({
   data,
   widthScaling = 1,
   height,
+  xAxisLabel,
+  yAxisLabel,
 }: {
   data: SingleLineDataPoint[];
   widthScaling?: number;
   height?: number;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
 }) => {
+  const theme = useTheme();
   const svgRef = useRef<SVGSVGElement | null>(null);
   const containerRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 300 });
@@ -38,9 +44,12 @@ export const SingleLineChartWrapper = ({
         svgRef,
         width: dimensions.width / widthScaling,
         height,
+        xAxisLabel,
+        yAxisLabel,
+        theme,
       });
     }
-  }, [data, dimensions]);
+  }, [data, dimensions, theme.palette.mode]);
 
   return (
     <div ref={containerRef} style={{ width: "100%" }}>

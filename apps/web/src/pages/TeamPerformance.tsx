@@ -30,20 +30,26 @@ function TeamPerformance() {
   return (
     <Grid container spacing={1}>
       <Grid size={12}>TeamPerformance</Grid>
-      <Grid size={{ sm: 12, md: 6 }}>
+      <Grid size={{ sm: 12, md: 8 }}>
         <Paper elevation={0}>
           {!isTeamBarDataLoading && teamBarData && (
-            <GroupBarChartWrapper height={400} data={teamBarData} />
+            <GroupBarChartWrapper
+              height={400}
+              data={teamBarData}
+              xAxisLabel={"Closed Fiscal Quarter"}
+              yAxisLabel={"ACV"}
+            />
           )}
         </Paper>
       </Grid>
-      <Grid size={{ sm: 12, md: 6 }}>
+      <Grid size={{ sm: 12, md: 4 }}>
         <Paper elevation={0}>
           {!isTeamPieDataLoading && teamPieData && (
             <DoughnutChartWrapper
               data={teamPieData}
               height={400}
-              widthScaling={2}
+              widthScaling={1}
+              showLabels={false}
             />
           )}
         </Paper>

@@ -30,20 +30,26 @@ function Industry() {
   return (
     <Grid container spacing={1}>
       <Grid size={12}>Industry</Grid>
-      <Grid size={{ sm: 12, md: 7 }}>
+      <Grid size={{ sm: 12, md: 8 }}>
         <Paper elevation={0}>
           {!isIndustryBardataLoading && industryBarData && (
-            <GroupBarChartWrapper height={400} data={industryBarData} />
+            <GroupBarChartWrapper
+              height={400}
+              data={industryBarData}
+              xAxisLabel={"Closed Fiscal Quarter"}
+              yAxisLabel={"ACV"}
+            />
           )}
         </Paper>
       </Grid>
-      <Grid size={{ sm: 12, md: 5 }}>
+      <Grid size={{ sm: 12, md: 4 }}>
         <Paper elevation={0}>
           {!isIndustryPieDataLoading && industryPieData && (
             <DoughnutChartWrapper
               widthScaling={1}
               height={400}
               data={industryPieData}
+              showLabels={false}
             />
           )}
         </Paper>

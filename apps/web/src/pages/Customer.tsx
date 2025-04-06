@@ -33,7 +33,12 @@ function Customer() {
       <Grid size={{ sm: 12, md: 6 }}>
         <Paper elevation={0}>
           {!isCustomerBarDataLoading && customerBarData && (
-            <StackedBarChartWrapper data={customerBarData} height={400} />
+            <StackedBarChartWrapper
+              data={customerBarData}
+              height={400}
+              xAxisLabel={"Closed Fiscal Quarter"}
+              yAxisLabel={"ACV"}
+            />
           )}
         </Paper>
       </Grid>

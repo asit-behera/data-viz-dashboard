@@ -9,6 +9,7 @@ import {
   Box,
   useTheme,
 } from "@mui/material";
+import React from "react";
 
 type Metric = {
   opps: number;
@@ -43,7 +44,6 @@ function Table({ tableData }: { tableData: TableData }) {
         const [min] = str.replace(/\$|k/g, "").split("_-_").map(Number);
         return min * 1000;
       };
-
       return getMin(a) - getMin(b);
     });
   } else {
@@ -52,7 +52,7 @@ function Table({ tableData }: { tableData: TableData }) {
 
   const theme = useTheme();
 
-  console.log({ uniqueKey, data, quarterTotal, sortedQuarters, keys });
+  //console.log({ uniqueKey, data, quarterTotal, sortedQuarters, keys });
 
   return (
     <Box
@@ -123,8 +123,8 @@ function Table({ tableData }: { tableData: TableData }) {
               >
                 {uniqueKey[1]}
               </TableCell>
-              {sortedQuarters?.map((_) => (
-                <>
+              {sortedQuarters?.map((_, i) => (
+                <React.Fragment key={"key_lkjk_" + i}>
                   <TableCell
                     sx={{
                       border: `1px solid ${theme.palette.divider}`,
@@ -155,7 +155,7 @@ function Table({ tableData }: { tableData: TableData }) {
                   >
                     % of Total
                   </TableCell>
-                </>
+                </React.Fragment>
               ))}
               <>
                 <TableCell
@@ -194,7 +194,7 @@ function Table({ tableData }: { tableData: TableData }) {
           <TableBody>
             {keys?.map((key, index) => {
               return (
-                <>
+                <React.Fragment key={"key_dofl_" + index}>
                   <TableRow
                     key={`${key}_${index}`}
                     /* sx={{
@@ -212,8 +212,8 @@ function Table({ tableData }: { tableData: TableData }) {
                     >
                       {_keys[key]}
                     </TableCell>
-                    {sortedQuarters.map((quarter) => (
-                      <>
+                    {sortedQuarters.map((quarter, i) => (
+                      <React.Fragment key={"key_kjyu_" + i}>
                         <TableCell
                           sx={{
                             border: `1px solid ${theme.palette.divider}`,
@@ -237,7 +237,7 @@ function Table({ tableData }: { tableData: TableData }) {
                             padding: "6px",
                           }}
                         >{`${data[key][quarter]?.percent ? data[key][quarter]?.percent + "%" : "-"}`}</TableCell>
-                      </>
+                      </React.Fragment>
                     ))}
                     <TableCell
                       sx={{
@@ -266,7 +266,7 @@ function Table({ tableData }: { tableData: TableData }) {
                       }}
                     >{`${data[key]["total"]?.percent ? data[key]["total"]?.percent + "%" : "-"}`}</TableCell>
                   </TableRow>
-                </>
+                </React.Fragment>
               );
             })}
             <TableRow
@@ -285,8 +285,8 @@ function Table({ tableData }: { tableData: TableData }) {
               >
                 {"Total"}
               </TableCell>
-              {sortedQuarters.map((quarter) => (
-                <>
+              {sortedQuarters.map((quarter, i) => (
+                <React.Fragment key={"key_jkj_" + i}>
                   <TableCell
                     sx={{
                       border: `1px solid ${theme.palette.divider}`,
@@ -313,7 +313,7 @@ function Table({ tableData }: { tableData: TableData }) {
                       fontWeight: "bold",
                     }}
                   >{`${quarterTotal[quarter]?.percent ? quarterTotal[quarter]?.percent + "%" : "-"}`}</TableCell>
-                </>
+                </React.Fragment>
               ))}
 
               <TableCell

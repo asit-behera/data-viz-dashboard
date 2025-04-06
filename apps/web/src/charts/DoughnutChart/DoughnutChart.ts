@@ -19,7 +19,11 @@ type DoughnutChartArgs = {
   theme: any;
 };
 
-const defaultFormatter = (d: DoughnutData) => `${d.label} (${d.percent}%)`;
+const defaultFormatter = (d: DoughnutData) =>
+  `${d.label} (${d.percent}%)\n$${d3.format(".2s")(d.value)}`;
+
+const htmlFormatter = (d: DoughnutData) =>
+  `<div style="color:black;"><strong>${d.label}</strong> (${d.percent}%)<br><span>$${d3.format(".2s")(d.value)}</span></div>`;
 
 const createDoughnutChart = ({
   data: { data, total },
@@ -74,20 +78,66 @@ const createDoughnutChart = ({
 
   const pieData = pie(data);
 
-  /* const arcs = */
+  // Create tooltip if not exists
+  let tooltip: d3.Selection<HTMLDivElement, unknown, HTMLElement, any> = d3
+    .select("body")
+    .select<HTMLDivElement>(".doughnut-tooltip");
+
+  if (tooltip.empty()) {
+    tooltip = d3
+      .select("body")
+      .append("div")
+      .attr("class", "doughnut-tooltip")
+      .style("position", "absolute")
+      .style("z-index", "10")
+      .style("visibility", "hidden")
+      .style("background", "white")
+      .style("border", "1px solid #ccc")
+      .style("border-radius", "4px")
+      .style("padding", "6px 10px")
+      .style("font-size", "12px")
+      .style("pointer-events", "none")
+      .style("box-shadow", "0 2px 6px rgba(0,0,0,0.15)");
+  }
+
   g.selectAll("path")
     .data(pieData)
     .enter()
     .append("path")
     .attr("d", arc)
-    .attr("fill", (d) => colorScale(d.data.label));
+    .attr("fill", (d) => colorScale(d.data.label))
+    .on("mouseover", function (event, d) {
+      tooltip.style("visibility", "visible").html(htmlFormatter(d.data));
+      d3.select(this)
+        .transition()
+        .duration(200)
+        .attr("transform", function () {
+          const dist = 10;
+          const midAngle = (d.startAngle + d.endAngle) / 2;
+          const x = Math.sin(midAngle) * dist;
+          const y = -Math.cos(midAngle) * dist;
+          return `translate(${x},${y})`;
+        });
+    })
+    .on("mousemove", function (event) {
+      tooltip
+        .style("top", event.pageY + 10 + "px")
+        .style("left", event.pageX + 10 + "px");
+    })
+    .on("mouseout", function () {
+      tooltip.style("visibility", "hidden");
+      d3.select(this)
+        .transition()
+        .duration(200)
+        .attr("transform", "translate(0,0)");
+    });
 
   if (showLabels) {
     const labelRadius = radius * 1.1;
 
     const labelNodes = pieData.map((d) => {
       const angle = (d.startAngle + d.endAngle) / 2;
-      const x = labelRadius * (angle < Math.PI ? 1 : -1); // left or right
+      const x = labelRadius * (angle < Math.PI ? 1 : -1);
       const y = labelArc.centroid(d)[1];
       return {
         x,
@@ -154,34 +204,8 @@ const createDoughnutChart = ({
     .style("font-size", "16px")
     .style("font-weight", "bold")
     .attr("dy", "1em")
-    .text(`$${total}K`)
+    .text(`$${d3.format(".2s")(total)}`)
     .attr("fill", theme.palette.text.primary);
-
-  /*   const legend = svg
-    .append("g")
-    .attr(
-      "transform",
-      `translate(${width - 150}, ${height / 2 - data.length * 10})`
-    )
-    .selectAll("g")
-    .data(data)
-    .enter()
-    .append("g")
-    .attr("transform", (_, i) => `translate(0, ${i * 20})`);
-
-  legend
-    .append("rect")
-    .attr("width", 15)
-    .attr("height", 15)
-    .attr("fill", (d) => colorScale(d.label));
-
-  legend
-    .append("text")
-    .attr("x", 20)
-    .attr("y", 10)
-    .text((d) => d.label)
-    .style("font-size", "12px")
-    .attr("alignment-baseline", "middle"); */
 
   return svgRef ? undefined : svg.node();
 };

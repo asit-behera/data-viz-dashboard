@@ -6,10 +6,12 @@ export const DoughnutChartWrapper = ({
   data,
   widthScaling = 1,
   height,
+  showLabels,
 }: {
   data: DoughnutDataMeta;
   widthScaling?: number;
   height?: number;
+  showLabels?: boolean;
 }) => {
   const theme = useTheme();
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -42,6 +44,7 @@ export const DoughnutChartWrapper = ({
         width: dimensions.width / widthScaling,
         height,
         theme,
+        showLabels,
       });
     }
   }, [data, dimensions, theme.palette.mode]);
