@@ -1,12 +1,14 @@
 import * as d3 from "d3";
 
-export interface DoughnutData {
+export type DoughnutData = {
   label: string;
   value: number;
   percent: number;
-}
+};
 
-interface DoughnutChartArgs {
+export type DoughnutDataMeta = { data: DoughnutData[]; total: number };
+
+type DoughnutChartArgs = {
   data: { data: DoughnutData[]; total: number };
   svgRef?: React.RefObject<SVGSVGElement | null>;
   width: number;
@@ -14,7 +16,7 @@ interface DoughnutChartArgs {
   innerRadiusRatio?: number; // e.g., 0.5 for half of outer radius
   showLabels?: boolean;
   formatLabel?: (d: DoughnutData) => string;
-}
+};
 
 const defaultFormatter = (d: DoughnutData) => `${d.label} (${d.percent}%)`;
 

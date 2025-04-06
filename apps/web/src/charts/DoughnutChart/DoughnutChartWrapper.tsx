@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import createDoughnutChart, { DoughnutData } from "./DoughnutChart";
+import createDoughnutChart, { DoughnutDataMeta } from "./DoughnutChart";
 
 export const DoughnutChartWrapper = ({
   data,
   widthScaling = 1,
   height,
 }: {
-  data: { data: DoughnutData[]; total: number };
+  data: DoughnutDataMeta;
   widthScaling?: number;
   height?: number;
 }) => {

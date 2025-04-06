@@ -1,38 +1,39 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { getCustomerView } from "./customerAPI";
-import { AxiosError } from "axios";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TableData } from "../../types/TableData.types";
+import {
+  fetchCustomerBarData,
+  fetchCustomerPieData,
+  fetchCustomerTableData,
+} from "./customerThunks";
+import { GroupedBarData } from "../../charts/GroupedBarChart/GoupedBarChat";
+import {
+  DoughnutData,
+  DoughnutDataMeta,
+} from "../../charts/DoughnutChart/DoughnutChart";
 
 interface CustomerState {
-  customerData: TableData | null;
+  customerTableData: TableData | null;
   loading: boolean;
   error: string | null;
+
+  customerBarData: GroupedBarData[] | null;
+  isCustomerBarDataLoading: boolean;
+
+  customerPieData: DoughnutDataMeta | null;
+  isCustomerPieDataLoading: boolean;
 }
 // Initial state
 const initialState: CustomerState = {
-  customerData: null,
+  customerTableData: null,
   loading: false,
   error: null,
-};
 
-// Async thunk
-export const fetchCustomerTableData = createAsyncThunk<
-  TableData, // Return type
-  void, // Argument type (no args)
-  {
-    rejectValue: string;
-  }
->("customer/fetchTableData", async (_, thunkAPI) => {
-  try {
-    const response = await getCustomerView("table");
-    return response.data.data as TableData;
-  } catch (error) {
-    const err = error as AxiosError;
-    return thunkAPI.rejectWithValue(
-      (err.response?.data as string) || "Something went wrong"
-    );
-  }
-});
+  customerBarData: null,
+  isCustomerBarDataLoading: false,
+
+  customerPieData: null,
+  isCustomerPieDataLoading: false,
+};
 
 // Slice
 const customerSlice = createSlice({
@@ -49,13 +50,51 @@ const customerSlice = createSlice({
         fetchCustomerTableData.fulfilled,
         (state, action: PayloadAction<TableData>) => {
           state.loading = false;
-          state.customerData = action.payload;
+          state.customerTableData = action.payload;
         }
       )
       .addCase(
         fetchCustomerTableData.rejected,
         (state, action: PayloadAction<string | undefined>) => {
           state.loading = false;
+          state.error = action.payload ?? "Unknown error";
+        }
+      )
+
+      .addCase(fetchCustomerBarData.pending, (state) => {
+        state.isCustomerBarDataLoading = true;
+        state.error = null;
+      })
+      .addCase(
+        fetchCustomerBarData.fulfilled,
+        (state, action: PayloadAction<GroupedBarData[]>) => {
+          state.isCustomerBarDataLoading = false;
+          state.customerBarData = action.payload;
+        }
+      )
+      .addCase(
+        fetchCustomerBarData.rejected,
+        (state, action: PayloadAction<string | undefined>) => {
+          state.isCustomerBarDataLoading = false;
+          state.error = action.payload ?? "Unknown error";
+        }
+      )
+
+      .addCase(fetchCustomerPieData.pending, (state) => {
+        state.isCustomerPieDataLoading = true;
+        state.error = null;
+      })
+      .addCase(
+        fetchCustomerPieData.fulfilled,
+        (state, action: PayloadAction<DoughnutDataMeta>) => {
+          state.isCustomerPieDataLoading = false;
+          state.customerPieData = action.payload;
+        }
+      )
+      .addCase(
+        fetchCustomerPieData.rejected,
+        (state, action: PayloadAction<string | undefined>) => {
+          state.isCustomerPieDataLoading = false;
           state.error = action.payload ?? "Unknown error";
         }
       );

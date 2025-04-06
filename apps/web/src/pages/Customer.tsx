@@ -1,20 +1,40 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../config/store";
-import { fetchCustomerTableData } from "../features/customer/customerSlice";
 import { Table } from "../components";
 import { Grid, Paper } from "@mui/material";
 import { DoughnutChartWrapper, StackedBarChartWrapper } from "../charts";
+import {
+  fetchCustomerBarData,
+  fetchCustomerPieData,
+  fetchCustomerTableData,
+} from "../features/customer/customerThunks";
 
 function Customer() {
   const dispatch = useAppDispatch();
-  const { customerData, loading, error } = useAppSelector(
-    (state) => state.customer
-  );
+  const {
+    customerTableData,
+    loading,
+    error,
+    customerBarData,
+    isCustomerBarDataLoading,
+    customerPieData,
+    isCustomerPieDataLoading,
+  } = useAppSelector((state) => state.customer);
 
-  console.log({ customerData, loading, error });
+  console.log({
+    customerTableData,
+    loading,
+    error,
+    customerBarData,
+    isCustomerBarDataLoading,
+    customerPieData,
+    isCustomerPieDataLoading,
+  });
 
   useEffect(() => {
-    if (!customerData) dispatch(fetchCustomerTableData());
+    if (!customerTableData) dispatch(fetchCustomerTableData());
+    if (!customerBarData) dispatch(fetchCustomerBarData());
+    if (!customerPieData) dispatch(fetchCustomerPieData());
   }, [dispatch]);
 
   return (
@@ -22,78 +42,26 @@ function Customer() {
       <Grid size={12}>Customer</Grid>
       <Grid size={{ sm: 12, md: 6 }}>
         <Paper elevation={0}>
-          <StackedBarChartWrapper
-            data={[
-              {
-                x: "2023-Q3",
-                y: 1322310,
-                group: "Existing Customer",
-              },
-              {
-                x: "2023-Q4",
-                y: 1124857,
-                group: "Existing Customer",
-              },
-              {
-                x: "2024-Q1",
-                y: 1360047,
-                group: "Existing Customer",
-              },
-              {
-                x: "2024-Q2",
-                y: 647821,
-                group: "Existing Customer",
-              },
-              {
-                x: "2023-Q3",
-                y: 983031,
-                group: "New Customer",
-              },
-              {
-                x: "2023-Q4",
-                y: 387300,
-                group: "New Customer",
-              },
-              {
-                x: "2024-Q1",
-                y: 313189,
-                group: "New Customer",
-              },
-              {
-                x: "2024-Q2",
-                y: 224643,
-                group: "New Customer",
-              },
-            ]}
-            height={400}
-          />
+          {!isCustomerBarDataLoading && customerBarData && (
+            <StackedBarChartWrapper data={customerBarData} height={400} />
+          )}
         </Paper>
       </Grid>
       <Grid size={{ sm: 12, md: 6 }}>
         <Paper elevation={0}>
-          <DoughnutChartWrapper
-            data={{
-              data: [
-                {
-                  label: "Existing Customer",
-                  value: 4455035,
-                  percent: 70,
-                },
-                {
-                  label: "New Customer",
-                  value: 1908163,
-                  percent: 30,
-                },
-              ],
-              total: 6363198,
-            }}
-            height={400}
-            widthScaling={2}
-          />
+          {!isCustomerPieDataLoading && customerPieData && (
+            <DoughnutChartWrapper
+              data={customerPieData}
+              height={400}
+              widthScaling={2}
+            />
+          )}
         </Paper>
       </Grid>
       <Grid size={12}>
-        {!loading && customerData && <Table tableData={customerData} />}
+        {!loading && customerTableData && (
+          <Table tableData={customerTableData} />
+        )}
       </Grid>
     </Grid>
   );
