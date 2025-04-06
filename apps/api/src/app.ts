@@ -40,9 +40,6 @@ app.get("/health", (req, res) => {
   return res.json({ message: "All OK!", status: "success" });
 });
 
-// 👇 Error handler must come last
-app.use(errorHandler);
-
 /**
  * ! This is not the ideal way to host static files.
  * * I understand that these files should be served behind a CDN or a load balancer.
@@ -52,5 +49,12 @@ app.use(errorHandler);
  * * the 404 error will simply fall back to React Router.
  */
 app.use(express.static(path.resolve(__dirname, "web")));
+
+app.get("/*", function (request, response) {
+  response.sendFile(path.resolve(__dirname, "./web/index.html"));
+});
+
+// Error handler must come last
+app.use(errorHandler);
 
 export default app;
