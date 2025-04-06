@@ -8,7 +8,7 @@ const appBarHeight = 64; // Adjust based on your AppBar height
 const collapsedWidth = 60;
 
 function Dashboard() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const toggleDrawer = () => {
     setOpen((prev) => !prev);

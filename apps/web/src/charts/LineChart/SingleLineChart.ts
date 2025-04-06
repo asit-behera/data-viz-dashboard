@@ -1,16 +1,16 @@
 import * as d3 from "d3";
 
-export interface SingleLineDataPoint {
+export type SingleLineDataPoint = {
   x: string;
   y: number;
-}
+};
 
-interface ChartOptions {
+type ChartOptions = {
   width: number;
   height?: number;
   svgRef: React.RefObject<SVGSVGElement | null>;
   color?: string;
-}
+};
 
 export default function createSingleLineChart(
   data: SingleLineDataPoint[],

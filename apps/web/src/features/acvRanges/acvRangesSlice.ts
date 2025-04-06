@@ -1,38 +1,38 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { getACVRangesView } from "./acvRangesAPI";
-import { AxiosError } from "axios";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TableData } from "../../types/TableData.types";
+import {
+  fetchACVRangeBarChartData,
+  fetchACVRangeLineChartData,
+  fetchACVRangeTableData,
+} from "./acvRangesThunks";
+import { SingleLineDataPoint } from "../../charts/LineChart/SingleLineChart";
+import { GroupedBarData } from "../../charts/GroupedBarChart/GoupedBarChat";
 
 interface ACVRangeState {
-  acvRangeData: TableData | null;
-  loading: boolean;
+  acvRangeTableData: TableData | null;
+  isAcvtableDataLoading: boolean;
+
+  acvRangeLineChartData: SingleLineDataPoint[] | null;
+  isAcvLineChartDataLoading: boolean;
+
+  acvRangeBarChartData: GroupedBarData[] | null;
+  isAcvBarChartDataLoading: boolean;
+
   error: string | null;
 }
 // Initial state
 const initialState: ACVRangeState = {
-  acvRangeData: null,
-  loading: false,
+  acvRangeTableData: null,
+  isAcvtableDataLoading: false,
+
+  acvRangeLineChartData: null,
+  isAcvLineChartDataLoading: false,
+
+  acvRangeBarChartData: null,
+  isAcvBarChartDataLoading: false,
+
   error: null,
 };
-
-// Async thunk
-export const fetchACVRangeTableData = createAsyncThunk<
-  TableData, // Return type
-  void, // Argument type (no args)
-  {
-    rejectValue: string;
-  }
->("acvRange/fetchTableData", async (_, thunkAPI) => {
-  try {
-    const response = await getACVRangesView("table");
-    return response.data.data as TableData;
-  } catch (error) {
-    const err = error as AxiosError;
-    return thunkAPI.rejectWithValue(
-      (err.response?.data as string) || "Something went wrong"
-    );
-  }
-});
 
 // Slice
 const acvRangeSlice = createSlice({
@@ -42,20 +42,59 @@ const acvRangeSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchACVRangeTableData.pending, (state) => {
-        state.loading = true;
+        state.isAcvtableDataLoading = true;
         state.error = null;
       })
       .addCase(
         fetchACVRangeTableData.fulfilled,
         (state, action: PayloadAction<TableData>) => {
-          state.loading = false;
-          state.acvRangeData = action.payload;
+          state.isAcvtableDataLoading = false;
+          state.acvRangeTableData = action.payload;
         }
       )
       .addCase(
         fetchACVRangeTableData.rejected,
         (state, action: PayloadAction<string | undefined>) => {
-          state.loading = false;
+          state.isAcvtableDataLoading = false;
+          state.error = action.payload ?? "Unknown error";
+        }
+      )
+
+      .addCase(fetchACVRangeLineChartData.pending, (state) => {
+        state.isAcvLineChartDataLoading = true;
+        state.error = null;
+      })
+      .addCase(
+        fetchACVRangeLineChartData.fulfilled,
+        (state, action: PayloadAction<SingleLineDataPoint[]>) => {
+          state.isAcvLineChartDataLoading = false;
+          state.acvRangeLineChartData = action.payload;
+        }
+      )
+      .addCase(
+        fetchACVRangeLineChartData.rejected,
+        (state, action: PayloadAction<string | undefined>) => {
+          state.isAcvLineChartDataLoading = false;
+          state.error = action.payload ?? "Unknown error";
+        }
+      )
+
+      .addCase(fetchACVRangeBarChartData.pending, (state) => {
+        state.isAcvBarChartDataLoading = true;
+        state.error = null;
+      })
+
+      .addCase(
+        fetchACVRangeBarChartData.fulfilled,
+        (state, action: PayloadAction<GroupedBarData[]>) => {
+          state.isAcvBarChartDataLoading = false;
+          state.acvRangeBarChartData = action.payload;
+        }
+      )
+      .addCase(
+        fetchACVRangeBarChartData.rejected,
+        (state, action: PayloadAction<string | undefined>) => {
+          state.isAcvBarChartDataLoading = false;
           state.error = action.payload ?? "Unknown error";
         }
       );

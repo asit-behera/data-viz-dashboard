@@ -1,16 +1,16 @@
 import * as d3 from "d3";
-export interface GroupedBarData {
+export type GroupedBarData = {
   x: string;
   y: number;
   group: string;
-}
+};
 
-interface GroupedBarChartArgs {
+type GroupedBarChartArgs = {
   data: GroupedBarData[];
   svgRef?: React.RefObject<SVGSVGElement | null>;
   width: number;
   height?: number;
-}
+};
 
 const createGroupedBarChart = ({
   data,
