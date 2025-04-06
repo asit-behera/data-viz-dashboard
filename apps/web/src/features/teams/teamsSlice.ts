@@ -1,38 +1,34 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { getTeamsView } from "./teamsAPI";
-import { AxiosError } from "axios";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TableData } from "../../types/TableData.types";
+import {
+  fetchTeamsBarData,
+  fetchTeamsPieData,
+  fetchTeamsTableData,
+} from "./teamsThunks";
+import { GroupedBarData } from "../../charts/GroupedBarChart/GoupedBarChat";
+import { DoughnutDataMeta } from "../../charts/DoughnutChart/DoughnutChart";
 
 interface TeamsState {
   teamsData: TableData | null;
   loading: boolean;
   error: string | null;
+
+  teamBarData: GroupedBarData[] | null;
+  isTeamBarDataLoading: boolean;
+
+  teamPieData: DoughnutDataMeta | null;
+  isTeamPieDataLoading: boolean;
 }
 // Initial state
 const initialState: TeamsState = {
   teamsData: null,
   loading: false,
   error: null,
+  teamBarData: null,
+  isTeamBarDataLoading: false,
+  teamPieData: null,
+  isTeamPieDataLoading: false,
 };
-
-// Async thunk
-export const fetchTeamsTableData = createAsyncThunk<
-  TableData, // Return type
-  void, // Argument type (no args)
-  {
-    rejectValue: string;
-  }
->("teams/fetchTableData", async (_, thunkAPI) => {
-  try {
-    const response = await getTeamsView("table");
-    return response.data.data as TableData;
-  } catch (error) {
-    const err = error as AxiosError;
-    return thunkAPI.rejectWithValue(
-      (err.response?.data as string) || "Something went wrong"
-    );
-  }
-});
 
 // Slice
 const teamsSlice = createSlice({
@@ -56,6 +52,44 @@ const teamsSlice = createSlice({
         fetchTeamsTableData.rejected,
         (state, action: PayloadAction<string | undefined>) => {
           state.loading = false;
+          state.error = action.payload ?? "Unknown error";
+        }
+      )
+
+      .addCase(fetchTeamsBarData.pending, (state) => {
+        state.isTeamBarDataLoading = true;
+        state.error = null;
+      })
+      .addCase(
+        fetchTeamsBarData.fulfilled,
+        (state, action: PayloadAction<GroupedBarData[]>) => {
+          state.isTeamBarDataLoading = false;
+          state.teamBarData = action.payload;
+        }
+      )
+      .addCase(
+        fetchTeamsBarData.rejected,
+        (state, action: PayloadAction<string | undefined>) => {
+          state.isTeamBarDataLoading = false;
+          state.error = action.payload ?? "Unknown error";
+        }
+      )
+
+      .addCase(fetchTeamsPieData.pending, (state) => {
+        state.isTeamPieDataLoading = true;
+        state.error = null;
+      })
+      .addCase(
+        fetchTeamsPieData.fulfilled,
+        (state, action: PayloadAction<DoughnutDataMeta>) => {
+          state.isTeamPieDataLoading = false;
+          state.teamPieData = action.payload;
+        }
+      )
+      .addCase(
+        fetchTeamsPieData.rejected,
+        (state, action: PayloadAction<string | undefined>) => {
+          state.isTeamPieDataLoading = false;
           state.error = action.payload ?? "Unknown error";
         }
       );

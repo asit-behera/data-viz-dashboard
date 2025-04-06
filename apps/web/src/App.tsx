@@ -16,7 +16,7 @@ import {
 import { Provider } from "react-redux";
 import { store } from "./config/store";
 
-const darkTheme = createTheme({
+/* const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: { main: "#027AE8" },
@@ -26,7 +26,7 @@ const darkTheme = createTheme({
     //error: { primary: "#F59C9C", secondary: "#1E0101" },
     //success: { primary: "#9CE8A1", secondary: "#021D02" },
   },
-});
+}); */
 
 const lightTheme = createTheme({
   palette: {

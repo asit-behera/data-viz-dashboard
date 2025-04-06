@@ -1,19 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { TableData } from "../../types/TableData.types";
-import { getCustomerView } from "./customerAPI";
+import { getTeamsView } from "./teamsAPI";
 import { AxiosError } from "axios";
 import { GroupedBarData } from "../../charts/GroupedBarChart/GoupedBarChat";
 import { DoughnutDataMeta } from "../../charts/DoughnutChart/DoughnutChart";
 
-export const fetchCustomerTableData = createAsyncThunk<
+export const fetchTeamsTableData = createAsyncThunk<
   TableData,
   void,
   {
     rejectValue: string;
   }
->("customer/fetchTableData", async (_, thunkAPI) => {
+>("teams/fetchTableData", async (_, thunkAPI) => {
   try {
-    const response = await getCustomerView("table");
+    const response = await getTeamsView("table");
     return response.data.data as TableData;
   } catch (error) {
     const err = error as AxiosError;
@@ -23,15 +23,15 @@ export const fetchCustomerTableData = createAsyncThunk<
   }
 });
 
-export const fetchCustomerBarData = createAsyncThunk<
+export const fetchTeamsBarData = createAsyncThunk<
   GroupedBarData[],
   void,
   {
     rejectValue: string;
   }
->("customer/fetchBarData", async (_, thunkAPI) => {
+>("teams/fetchBarData", async (_, thunkAPI) => {
   try {
-    const response = await getCustomerView("bar");
+    const response = await getTeamsView("bar");
     return response.data.data as GroupedBarData[];
   } catch (error) {
     const err = error as AxiosError;
@@ -41,15 +41,15 @@ export const fetchCustomerBarData = createAsyncThunk<
   }
 });
 
-export const fetchCustomerPieData = createAsyncThunk<
+export const fetchTeamsPieData = createAsyncThunk<
   DoughnutDataMeta,
   void,
   {
     rejectValue: string;
   }
->("customer/fetchPieData", async (_, thunkAPI) => {
+>("teams/fetchPieData", async (_, thunkAPI) => {
   try {
-    const response = await getCustomerView("pie");
+    const response = await getTeamsView("pie");
     return response.data.data as DoughnutDataMeta;
   } catch (error) {
     const err = error as AxiosError;

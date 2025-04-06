@@ -6,10 +6,7 @@ import {
   fetchCustomerTableData,
 } from "./customerThunks";
 import { GroupedBarData } from "../../charts/GroupedBarChart/GoupedBarChat";
-import {
-  DoughnutData,
-  DoughnutDataMeta,
-} from "../../charts/DoughnutChart/DoughnutChart";
+import { DoughnutDataMeta } from "../../charts/DoughnutChart/DoughnutChart";
 
 interface CustomerState {
   customerTableData: TableData | null;
