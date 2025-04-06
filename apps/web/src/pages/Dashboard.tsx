@@ -37,7 +37,7 @@ function Dashboard() {
   );
 }
 
-const data: any = {
+/* const data: any = {
   success: true,
   data: {
     result: {
@@ -93,6 +93,6 @@ const data: any = {
     secondLastQuarter: "2024-Q1",
   },
   message: "Success",
-};
+}; */
 
 export default Dashboard;
