@@ -15,7 +15,7 @@ function AcvRanges() {
     acvRangeTableData,
     isAcvtableDataLoading,
 
-    error,
+    /* error, */
 
     acvRangeLineChartData,
     isAcvLineChartDataLoading,

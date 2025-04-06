@@ -14,7 +14,7 @@ function Customer() {
   const {
     customerTableData,
     loading,
-    error,
+    /* error, */
     customerBarData,
     isCustomerBarDataLoading,
     customerPieData,

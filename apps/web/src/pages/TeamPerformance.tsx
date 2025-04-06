@@ -14,7 +14,7 @@ function TeamPerformance() {
   const {
     teamsData,
     loading,
-    error,
+    /* error, */
     teamBarData,
     isTeamBarDataLoading,
     teamPieData,

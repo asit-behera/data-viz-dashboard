@@ -14,7 +14,7 @@ function Industry() {
   const {
     industryData,
     loading,
-    error,
+    /* error, */
     industryBarData,
     isIndustryBardataLoading,
     industryPieData,
