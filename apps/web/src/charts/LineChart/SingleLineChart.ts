@@ -44,6 +44,18 @@ export default function createSingleLineChart(
   const yMax = d3.max(data, (d) => d.y) || 100;
   const yScale = d3.scaleLinear().domain([0, yMax]).range([chartHeight, 0]);
 
+  g.append("g")
+    .attr("class", "grid")
+    .call(
+      d3
+        .axisLeft(yScale)
+        .tickSize(-chartWidth)
+        .tickFormat(() => "")
+    )
+    .selectAll("line")
+    .attr("stroke", "#ccc")
+    .attr("stroke-dasharray", "2,2");
+
   // Line generator
   const line = d3
     .line<SingleLineDataPoint>()
@@ -56,7 +68,9 @@ export default function createSingleLineChart(
     .attr("transform", `translate(0, ${chartHeight})`)
     .call(d3.axisBottom(xScale));
 
-  g.append("g").call(d3.axisLeft(yScale));
+  g.append("g").call(
+    d3.axisLeft(yScale).tickFormat((d) => `$${d3.format(".2s")(d)}`)
+  );
 
   // Line path
   g.append("path")

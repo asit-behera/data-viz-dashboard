@@ -13,7 +13,7 @@ type DoughnutChartArgs = {
   svgRef?: React.RefObject<SVGSVGElement | null>;
   width: number;
   height?: number;
-  innerRadiusRatio?: number; // e.g., 0.5 for half of outer radius
+  innerRadiusRatio?: number;
   showLabels?: boolean;
   formatLabel?: (d: DoughnutData) => string;
 };
@@ -88,7 +88,7 @@ const createDoughnutChart = ({
       const x = labelRadius * (angle < Math.PI ? 1 : -1); // left or right
       const y = labelArc.centroid(d)[1];
       return {
-        x, // locked x position
+        x,
         y,
         angle,
         data: d.data,
@@ -98,8 +98,8 @@ const createDoughnutChart = ({
 
     const simulation = d3
       .forceSimulation(labelNodes)
-      .force("y", d3.forceY((d) => d.y ?? 0).strength(0.1))
-      .force("collide", d3.forceCollide(14)) // padding between labels
+      .force("y", d3.forceY((d) => d.y ?? 0).strength(0.001))
+      .force("collide", d3.forceCollide(10))
       .stop();
 
     for (let i = 0; i < 200; ++i) simulation.tick();
@@ -136,50 +136,6 @@ const createDoughnutChart = ({
       .style("text-anchor", (d) => (d.angle < Math.PI ? "start" : "end"))
       .style("alignment-baseline", "middle")
       .style("font-size", "12px");
-
-    /*  // Add polylines
-    g.selectAll("polyline")
-      .data(pieData)
-      .enter()
-      .append("polyline")
-      .attr("stroke", "black")
-      .attr("stroke-width", 1)
-      .attr("fill", "none")
-      .attr("points", (d) => {
-        const posA = arc.centroid(d); // From arc
-        const posB = labelArc.centroid(d); // Just outside the arc
-        const midAngle = (d.startAngle + d.endAngle) / 2;
-        const posC = [radius * 1.05 * (midAngle < Math.PI ? 1 : -1), posB[1]]; // Horizontal line
-        const points = [posA, posB, posC];
-        return points.map((p) => p.join(",")).join(" ");
-      });
-
-    // Add labels
-    g.selectAll("text")
-      .data(pieData)
-      .enter()
-      .append("text")
-      .text(null) // Clear existing text
-      .each(function (d) {
-        const lines = formatLabel(d.data).split("\n");
-        lines.forEach((line, i) => {
-          d3.select(this)
-            .append("tspan")
-            .text(line)
-            .attr("x", 0)
-            .attr("dy", i === 0 ? 0 : "1.2em"); // Space between lines
-        });
-      })
-      .attr("transform", (d) => {
-        const midAngle = (d.startAngle + d.endAngle) / 2;
-        const pos = labelArc.centroid(d);
-        return `translate(${radius * 1.1 * (midAngle < Math.PI ? 1 : -1)}, ${pos[1]})`;
-      })
-      .style("text-anchor", (d) =>
-        (d.startAngle + d.endAngle) / 2 < Math.PI ? "start" : "end"
-      )
-      .style("alignment-baseline", "middle")
-      .style("font-size", "12px"); */
   }
 
   g.append("text")

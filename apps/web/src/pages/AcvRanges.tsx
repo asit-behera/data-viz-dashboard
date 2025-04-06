@@ -24,17 +24,6 @@ function AcvRanges() {
     isAcvBarChartDataLoading,
   } = useAppSelector((state) => state.acvRange);
 
-  console.log({
-    acvRangeTableData,
-    isAcvtableDataLoading,
-    error,
-    acvRangeLineChartData,
-    isAcvLineChartDataLoading,
-
-    acvRangeBarChartData,
-    isAcvBarChartDataLoading,
-  });
-
   useEffect(() => {
     if (!acvRangeTableData) dispatch(fetchACVRangeTableData());
     if (!acvRangeLineChartData) dispatch(fetchACVRangeLineChartData());

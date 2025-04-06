@@ -70,7 +70,7 @@ export default function Drawer({ isOpen, toggleDrawer }: DrawerProps) {
         <ListItem disablePadding>
           <ListItemButton
             onClick={() => {
-              navigate("/ACV-Ranges");
+              navigate("/acv-ranges");
             }}
           >
             <ListItemIcon>

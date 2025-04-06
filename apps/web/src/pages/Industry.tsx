@@ -21,8 +21,6 @@ function Industry() {
     isIndustryPieDataLoading,
   } = useAppSelector((state) => state.industry);
 
-  console.log({ industryData, loading, error });
-
   useEffect(() => {
     if (!industryData) dispatch(fetchIndustryTableData());
     if (!industryBarData) dispatch(fetchIndustryBarData());

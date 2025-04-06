@@ -21,16 +21,6 @@ function TeamPerformance() {
     isTeamPieDataLoading,
   } = useAppSelector((state) => state.teams);
 
-  console.log({
-    teamsData,
-    loading,
-    error,
-    teamBarData,
-    isTeamBarDataLoading,
-    teamPieData,
-    isTeamPieDataLoading,
-  });
-
   useEffect(() => {
     if (!teamsData) dispatch(fetchTeamsTableData());
     if (!teamBarData) dispatch(fetchTeamsBarData());

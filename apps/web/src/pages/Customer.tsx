@@ -21,16 +21,6 @@ function Customer() {
     isCustomerPieDataLoading,
   } = useAppSelector((state) => state.customer);
 
-  console.log({
-    customerTableData,
-    loading,
-    error,
-    customerBarData,
-    isCustomerBarDataLoading,
-    customerPieData,
-    isCustomerPieDataLoading,
-  });
-
   useEffect(() => {
     if (!customerTableData) dispatch(fetchCustomerTableData());
     if (!customerBarData) dispatch(fetchCustomerBarData());

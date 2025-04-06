@@ -1,10 +1,6 @@
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import "./App.css";
-import { DashboardLayout } from "./layouts";
+import { CssBaseline } from "@mui/material";
 
-import { createTheme } from "@mui/material/styles";
-//import { useState } from "react";
-//import { lime, purple } from "@mui/material/colors";
+import { DashboardLayout } from "./layouts";
 import { BrowserRouter, Routes, Route } from "react-router";
 import {
   AcvRanges,
@@ -15,41 +11,12 @@ import {
 } from "./pages";
 import { Provider } from "react-redux";
 import { store } from "./config/store";
+import ThemeProviderComponent from "./contexts/ThemeContext";
 
-/* const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: { main: "#027AE8" },
-    secondary: { main: "#9C27B0" },
-    background: { default: "#05070A", paper: "#0C1017" },
-    text: { primary: "#FDFDFD", secondary: "#8FA0B8" },
-    //error: { primary: "#F59C9C", secondary: "#1E0101" },
-    //success: { primary: "#9CE8A1", secondary: "#021D02" },
-  },
-}); */
-
-const lightTheme = createTheme({
-  palette: {
-    mode: "light",
-    primary: { main: "#027AE8" },
-    secondary: { main: "#9C27B0" },
-    background: { default: "#FCFCFC", paper: "#F5F6FA" },
-    text: { primary: "#0B0E14", secondary: "#47536B" },
-    //error: { primary: "#C20A0A", secondary: "#FFF0F0" },
-    //success: { primary: "#1F7A2C", secondary: "#F6FEF6" },
-  },
-});
 function App() {
-  /*   const [isDarkTheme, setIsDarkTheme] = useState(true);
-  const toggleTheme = () => {
-    setIsDarkTheme((prev) => !prev);
-  }; */
-
   return (
-    <BrowserRouter>
-      <ThemeProvider
-        theme={/* isDarkTheme ? lightTheme : darkTheme */ lightTheme}
-      >
+    <ThemeProviderComponent>
+      <BrowserRouter>
         <Provider store={store}>
           <Routes>
             <Route element={<DashboardLayout />}>
@@ -62,8 +29,8 @@ function App() {
           </Routes>
         </Provider>
         <CssBaseline />
-      </ThemeProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ThemeProviderComponent>
   );
 }
 

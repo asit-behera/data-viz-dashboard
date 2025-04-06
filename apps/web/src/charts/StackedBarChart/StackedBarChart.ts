@@ -71,6 +71,17 @@ const createStackedBarChart = ({
     .nice()
     .range([chartHeight, 0]);
 
+  g.append("g")
+    .attr("class", "grid")
+    .call(
+      d3
+        .axisLeft(yScale)
+        .tickSize(-chartWidth)
+        .tickFormat(() => "")
+    )
+    .selectAll("line")
+    .attr("stroke", "#fff");
+
   const colorScale = d3.scaleOrdinal(d3.schemeTableau10).domain(groups);
 
   // Axes
@@ -78,7 +89,9 @@ const createStackedBarChart = ({
     .attr("transform", `translate(0,${chartHeight})`)
     .call(d3.axisBottom(xScale));
 
-  g.append("g").call(d3.axisLeft(yScale));
+  g.append("g").call(
+    d3.axisLeft(yScale).tickFormat((d) => `$${d3.format(".2s")(d)}`)
+  );
 
   // Draw bars
   g.selectAll(".layer")
@@ -116,7 +129,8 @@ const createStackedBarChart = ({
       .attr("x", 20)
       .attr("y", 10)
       .attr("font-size", "12px")
-      .text(group);
+      .text(group)
+      .style("fill", "#fff");
   });
 };
 

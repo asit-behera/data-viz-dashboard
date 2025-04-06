@@ -58,6 +58,19 @@ const createGroupedBarChart = ({
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   g.append("g")
+    .attr("class", "grid")
+    .call(
+      d3
+        .axisLeft(y)
+        .tickSize(-innerWidth)
+        .tickFormat(() => "")
+    )
+    .selectAll("line")
+    .attr("stroke", "#ccc");
+  //.attr("stroke-opacity", 0.5)
+  // .attr("stroke-dasharray", "2,2");
+
+  g.append("g")
     .selectAll("g")
     .data(groupedData)
     .enter()
@@ -77,7 +90,9 @@ const createGroupedBarChart = ({
     .attr("transform", `translate(0,${innerHeight})`)
     .call(d3.axisBottom(x0));
 
-  g.append("g").call(d3.axisLeft(y));
+  g.append("g").call(
+    d3.axisLeft(y).tickFormat((d) => `$${d3.format(".2s")(d)}`)
+  );
 
   const legend = svg
     .append("g")
@@ -100,7 +115,9 @@ const createGroupedBarChart = ({
     .attr("y", 10)
     .text((d) => d)
     .style("font-size", "12px")
-    .attr("alignment-baseline", "middle");
+    .attr("alignment-baseline", "middle")
+    .style("fill", "#fff");
+  //.style("fill", theme === "dark" ? "#fff" : "#000");
 
   return svgRef ? undefined : svg.node();
 };
