@@ -106,7 +106,7 @@ const createDoughnutChart = ({
     .append("path")
     .attr("d", arc)
     .attr("fill", (d) => colorScale(d.data.label))
-    .on("mouseover", function (event, d) {
+    .on("mouseover", function (_e, d) {
       tooltip.style("visibility", "visible").html(htmlFormatter(d.data));
       d3.select(this)
         .transition()

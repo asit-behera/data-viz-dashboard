@@ -100,14 +100,13 @@ export default function createSingleLineChart(
     .attr("stroke-dasharray", "2,2");
 
   // Axes
-  const xAxis = g
-    .append("g")
+  g.append("g")
     .attr("transform", `translate(0, ${chartHeight})`)
     .call(d3.axisBottom(xScale));
 
-  const yAxis = g
-    .append("g")
-    .call(d3.axisLeft(yScale).tickFormat((d) => `$${d3.format(".2s")(d)}`));
+  g.append("g").call(
+    d3.axisLeft(yScale).tickFormat((d) => `$${d3.format(".2s")(d)}`)
+  );
 
   // X Axis Label
   if (xAxisLabel) {
@@ -160,7 +159,7 @@ export default function createSingleLineChart(
     .attr("cy", (d) => yScale(d.y))
     .attr("r", 4)
     .attr("fill", color)
-    .on("mouseover", function (event, d) {
+    .on("mouseover", function (_e, d) {
       tooltip.style("opacity", 1).html(htmlFormatter(d));
       d3.select(this).attr("r", 6);
     })
