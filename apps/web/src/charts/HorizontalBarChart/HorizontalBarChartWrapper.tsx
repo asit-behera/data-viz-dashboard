@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import createDoughnutChart, { DoughnutData } from "./DoughnutChart";
+import createHorizontalBarChart, { HorizontalBarDatum } from "./createHorizontalBarChart";
 
-export const DoughnutChartWrapper = ({
+export const HorizontalBarChartWrapper = ({
   data,
   widthScaling = 1,
   height,
 }: {
-  data: { data: DoughnutData[]; total: number };
+  data: HorizontalBarDatum[];
   widthScaling?: number;
   height?: number;
 }) => {
@@ -34,7 +34,7 @@ export const DoughnutChartWrapper = ({
   useEffect(() => {
     if (!dimensions.width) return;
     if (svgRef.current) {
-      createDoughnutChart({
+      createHorizontalBarChart({
         data,
         svgRef,
         width: dimensions.width / widthScaling,
@@ -50,4 +50,4 @@ export const DoughnutChartWrapper = ({
   );
 };
 
-export default DoughnutChartWrapper;
+export default HorizontalBarChartWrapper;

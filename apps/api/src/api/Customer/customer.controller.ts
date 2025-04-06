@@ -26,8 +26,10 @@ const getCustomerTypes = async (
       case "bar":
         result = formatGroupedBarChart(result);
         break;
-      /*   case "table":
-        break; */
+      case "table":
+        break;
+      default:
+        throw new AppError("Bad value for view", 400);
     }
 
     res.json(successResponse(result));

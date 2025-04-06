@@ -1,7 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import createGroupedBarChart, { GroupedBarData } from "./GoupedBarChat";
 
-export const GroupBarChartWrapper = ({ data }: { data: GroupedBarData[] }) => {
+export const GroupBarChartWrapper = ({
+  data,
+  widthScaling = 1,
+  height,
+}: {
+  data: GroupedBarData[];
+  widthScaling?: number;
+  height?: number;
+}) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const containerRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 300 });
@@ -26,7 +34,12 @@ export const GroupBarChartWrapper = ({ data }: { data: GroupedBarData[] }) => {
   useEffect(() => {
     if (!dimensions.width) return;
     if (svgRef.current) {
-      createGroupedBarChart({ data, svgRef, width: dimensions.width });
+      createGroupedBarChart({
+        data,
+        svgRef,
+        width: dimensions.width / widthScaling,
+        height,
+      });
     }
   }, [data, dimensions]);
 

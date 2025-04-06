@@ -1,14 +1,10 @@
 import { AcvRangeService } from "./index";
-/* import {
-  formatTable,
-  formatPieChart,
-  formatStackedBarChart,
-} from "./industry.utils"; */
-
 import { NextFunction, Request, Response } from "express";
 import formatTable from "../../utils/TableFormatter.util";
 import { AppError } from "../../utils/AppError";
 import { successResponse } from "../../utils/Response";
+import formatGroupedBarChart from "../../utils/GroupedBarChartFormatter.util";
+import generateLineChartData from "./AcvRangeLineChartFormatter.util";
 
 const getAcvRange = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -17,18 +13,19 @@ const getAcvRange = async (req: Request, res: Response, next: NextFunction) => {
 
     const data = await AcvRangeService.getAcvRangeData(); // raw json
 
-    let result;
+    let result: any = formatTable(data, "ACV_Range");
 
     switch (view) {
-      case "pie":
-        //result = formatPieChart(data);
+      case "line":
+        result = generateLineChartData(result);
         break;
       case "bar":
-        //result = formatStackedBarChart(data);
+        result = formatGroupedBarChart(result);
         break;
       case "table":
-        result = formatTable(data, "ACV_Range"); // could just be `data`
         break;
+      default:
+        throw new AppError("Bad value for view", 400);
     }
 
     res.json(successResponse(result));

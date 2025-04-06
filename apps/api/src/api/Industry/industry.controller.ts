@@ -22,9 +22,10 @@ const getIndustry = async (req: Request, res: Response, next: NextFunction) => {
       case "bar":
         result = formatGroupedBarChart(result);
         break;
-      /* case "table":
-        Removed this case as the formatted table data will be easy to compile for the other charts 
-        break; */
+      case "table":
+        break;
+      default:
+        throw new AppError("Bad value for view", 400);
     }
 
     res.json(successResponse(result));

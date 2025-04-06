@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import createDoughnutChart, { DoughnutData } from "./DoughnutChart";
+import createSingleLineChart, { SingleLineDataPoint } from "./SingleLineChart";
 
-export const DoughnutChartWrapper = ({
+export const SingleLineChartWrapper = ({
   data,
   widthScaling = 1,
   height,
 }: {
-  data: { data: DoughnutData[]; total: number };
+  data: SingleLineDataPoint[];
   widthScaling?: number;
   height?: number;
 }) => {
@@ -34,8 +34,7 @@ export const DoughnutChartWrapper = ({
   useEffect(() => {
     if (!dimensions.width) return;
     if (svgRef.current) {
-      createDoughnutChart({
-        data,
+      createSingleLineChart(data, {
         svgRef,
         width: dimensions.width / widthScaling,
         height,
@@ -50,4 +49,4 @@ export const DoughnutChartWrapper = ({
   );
 };
 
-export default DoughnutChartWrapper;
+export default SingleLineChartWrapper;

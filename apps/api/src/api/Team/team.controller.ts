@@ -9,6 +9,8 @@ import { NextFunction, Request, Response } from "express";
 import formatTable from "../../utils/TableFormatter.util";
 import { AppError } from "../../utils/AppError";
 import { successResponse } from "../../utils/Response";
+import formatPieChart from "../../utils/PiechartFormatter.util";
+import formatGroupedBarChart from "../../utils/GroupedBarChartFormatter.util";
 
 const getTeam = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -17,18 +19,19 @@ const getTeam = async (req: Request, res: Response, next: NextFunction) => {
 
     const data = await TeamService.getTeamsData(); // raw json
 
-    let result;
+    let result: any = formatTable(data, "Team");
 
     switch (view) {
       case "pie":
-        //result = formatPieChart(data);
+        result = formatPieChart(result);
         break;
       case "bar":
-        //result = formatStackedBarChart(data);
+        result = formatGroupedBarChart(result);
         break;
       case "table":
-        result = formatTable(data, "Team"); // could just be `data`
         break;
+      default:
+        throw new AppError("Bad value for view", 400);
     }
 
     res.json(successResponse(result));

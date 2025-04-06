@@ -15,7 +15,7 @@ const router = Router();
  *          required: true
  *          schema:
  *              type: string
- *              enum: [pie,bar,table]
+ *              enum: [line,bar,table]
  *      responses:
  *          '200':
  *              description: Success

@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import createDoughnutChart, { DoughnutData } from "./DoughnutChart";
+import createHeatmapChart, { HeatmapDataPoint } from "./HeatmapChart";
 
-export const DoughnutChartWrapper = ({
+export const HeatmapChartWrapper = ({
   data,
   widthScaling = 1,
   height,
 }: {
-  data: { data: DoughnutData[]; total: number };
+  data: HeatmapDataPoint[];
   widthScaling?: number;
   height?: number;
 }) => {
@@ -34,8 +34,7 @@ export const DoughnutChartWrapper = ({
   useEffect(() => {
     if (!dimensions.width) return;
     if (svgRef.current) {
-      createDoughnutChart({
-        data,
+      createHeatmapChart(data, {
         svgRef,
         width: dimensions.width / widthScaling,
         height,
@@ -50,4 +49,4 @@ export const DoughnutChartWrapper = ({
   );
 };
 
-export default DoughnutChartWrapper;
+export default HeatmapChartWrapper;

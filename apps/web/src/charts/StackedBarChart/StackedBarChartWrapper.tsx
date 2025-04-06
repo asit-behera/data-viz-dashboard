@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import createDoughnutChart, { DoughnutData } from "./DoughnutChart";
+import { GroupedBarData } from "../GroupedBarChart/GoupedBarChat";
+import createStackedBarChart from "./StackedBarChart";
 
-export const DoughnutChartWrapper = ({
+export const StackedBarChartWrapper = ({
   data,
   widthScaling = 1,
   height,
 }: {
-  data: { data: DoughnutData[]; total: number };
+  data: GroupedBarData[];
   widthScaling?: number;
   height?: number;
 }) => {
@@ -34,7 +35,7 @@ export const DoughnutChartWrapper = ({
   useEffect(() => {
     if (!dimensions.width) return;
     if (svgRef.current) {
-      createDoughnutChart({
+      createStackedBarChart({
         data,
         svgRef,
         width: dimensions.width / widthScaling,
@@ -45,9 +46,14 @@ export const DoughnutChartWrapper = ({
 
   return (
     <div ref={containerRef} style={{ width: "100%" }}>
-      <svg ref={svgRef} style={{ width: "100%" }}></svg>
+      <svg
+        ref={svgRef}
+        style={{
+          width: "100%",
+        }}
+      ></svg>
     </div>
   );
 };
 
-export default DoughnutChartWrapper;
+export default StackedBarChartWrapper;
