@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Typography, useTheme } from "@mui/material";
+import { Divider, Typography, useTheme } from "@mui/material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { useContext } from "react";
@@ -123,6 +123,13 @@ export default function AppBar({ toggleDrawer, isDrawerOpen }: AppBarProps) {
           >
             <GitHubIcon color="primary" />
           </IconButton>
+
+          <Divider
+            orientation="vertical"
+            variant="middle"
+            flexItem
+            sx={{ mr: 3 }}
+          />
 
           <IconButton
             size="large"

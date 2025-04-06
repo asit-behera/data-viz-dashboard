@@ -5,6 +5,7 @@ import teamsReducer from "../features/teams/teamsSlice";
 import industryReducer from "../features/industry/industrySlice";
 import customerReducer from "../features/customer/customerSlice";
 import acvRangeReducer from "../features/acvRanges/acvRangesSlice";
+import miscReducer from "../features/misc/miscSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     industry: industryReducer,
     customer: customerReducer,
     acvRange: acvRangeReducer,
+    misc: miscReducer,
   },
 });
 
